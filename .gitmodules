@@ -1,0 +1,6 @@
+[submodule "dtrpg-app"]
+	path = dtrpg-app
+	url = git@github.com:pilgrimagesoftware/dtrpg-app.git
+[submodule "dtrpg-sdk"]
+	path = dtrpg-sdk
+	url = git@github.com:pilgrimagesoftware/dtrpg-sdk.git
