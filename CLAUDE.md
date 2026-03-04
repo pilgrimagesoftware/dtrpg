@@ -82,6 +82,17 @@ git commit -m "Update dtrpg-sdk submodule"
 git push
 ```
 
+## Repository Branches and Workflow
+
+All meta-repositories use the `master` branch as the source of truth.
+
+All code repositories use the `develop` branch as the source of truth, with the "Git Flow" process for
+branch creation and merging.
+
+## Commit Messages
+
+Commit messages follow the "Convention Commits" format: https://www.conventionalcommits.org/en/v1.0.0/
+
 ## Architecture Notes
 
 - **Meta-repository Pattern**: This is a top-level organizational repository. Actual development happens in the
@@ -98,6 +109,7 @@ git push
 ### Detached HEAD State
 
 Submodules often end up in detached HEAD state. Before making changes, ensure you're on a branch:
+
 ```bash
 cd <submodule-directory>
 git checkout master  # or appropriate branch
