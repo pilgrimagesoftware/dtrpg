@@ -84,10 +84,14 @@ git push
 
 ## Architecture Notes
 
-- **Meta-repository Pattern**: This is a top-level organizational repository. Actual development happens in the submodules.
-- **Language-Specific SDKs**: Each language SDK (Go, Python, Rust, Swift) is maintained as a separate repository, allowing independent versioning and release cycles.
-- **Shared API Documentation**: The `dtrpg-sdk/api` submodule contains the source of truth for API specifications used across all SDK implementations.
-- **Nested Submodules**: Both `dtrpg-sdk` and `dtrpg-app` are meta-repositories themselves containing their own submodules. Use `--recursive` flags when appropriate.
+- **Meta-repository Pattern**: This is a top-level organizational repository. Actual development happens in the
+  submodules.
+- **Language-Specific SDKs**: Each language SDK (Go, Python, Rust, Swift) is maintained as a separate repository,
+  allowing independent versioning and release cycles.
+- **Shared API Documentation**: The `dtrpg-sdk/api` submodule contains the source of truth for API specifications
+  used across all SDK implementations.
+- **Nested Submodules**: Both `dtrpg-sdk` and `dtrpg-app` are meta-repositories themselves containing their own
+  submodules. Use `--recursive` flags when appropriate.
 
 ## Common Issues
 
