@@ -4,7 +4,9 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## About This Project
 
-This is the master meta-repository for the DriveThruRPG project, which organizes SDK libraries and desktop applications for interacting with the DriveThruRPG API. The project uses a nested submodule architecture to manage multiple language implementations.
+This is the master meta-repository for the DriveThruRPG project, which organizes SDK libraries and desktop
+applications for interacting with the DriveThruRPG API. The project uses a nested submodule architecture to
+manage multiple language implementations.
 
 ## Repository Structure
 
@@ -24,6 +26,7 @@ This repository contains two main meta-repositories as git submodules:
 ## Working with Submodules
 
 ### Initial Setup
+
 ```bash
 # Clone with all nested submodules
 git clone --recursive git@github.com:pilgrimagesoftware/dtrpg.git
@@ -33,6 +36,7 @@ git submodule update --init --recursive
 ```
 
 ### Updating Submodules
+
 ```bash
 # Update all submodules to latest commits on their tracked branches
 git submodule update --remote --merge
@@ -45,6 +49,7 @@ cd dtrpg-sdk && git submodule update --remote --merge
 ```
 
 ### Checking Submodule Status
+
 ```bash
 # Check status of direct submodules
 git submodule status
@@ -55,6 +60,7 @@ cd dtrpg-app && git submodule status
 ```
 
 ### Making Changes
+
 When making changes to submodules:
 1. Navigate into the submodule directory
 2. Make changes and commit within the submodule
@@ -84,6 +90,7 @@ git push
 ## Common Issues
 
 ### Detached HEAD State
+
 Submodules often end up in detached HEAD state. Before making changes, ensure you're on a branch:
 ```bash
 cd <submodule-directory>
@@ -91,7 +98,9 @@ git checkout master  # or appropriate branch
 ```
 
 ### Submodule Not Initialized
+
 If a submodule directory is empty or shows errors:
+
 ```bash
 git submodule update --init --recursive
 ```
