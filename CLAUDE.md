@@ -13,7 +13,6 @@ manage multiple language implementations.
 This repository contains two main meta-repositories as git submodules:
 
 - **dtrpg-sdk** - SDK implementations across multiple languages (Go, Python, Rust, Swift)
-  - `api` - API documentation and specifications used for code generation
   - `go` - Go SDK implementation
   - `python` - Python SDK implementation
   - `rust` - Rust SDK implementation
@@ -22,6 +21,9 @@ This repository contains two main meta-repositories as git submodules:
 - **dtrpg-app** - Desktop application implementations
   - `rust` - Rust-based desktop application
   - `swift` - Swift-based desktop application (macOS)
+
+It also contains the `dtrpg-api` repository as a submodule where the API documentation and configuration are
+kept.
 
 ## Working with Submodules
 
