@@ -104,6 +104,11 @@ All meta-repositories use the `master` branch as the source of truth.
 All code repositories use the `develop` branch as the source of truth, with the "Git Flow" process for
 branch creation and merging.
 
+## Writing Code and Generating Files
+
+- YAML files should always use the `.yaml` extension.
+- Code should always include doc comments.
+
 ## Commit Messages
 
 Commit messages follow the "Convention Commits" format: https://www.conventionalcommits.org/en/v1.0.0/
