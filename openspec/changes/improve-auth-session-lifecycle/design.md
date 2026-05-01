@@ -25,6 +25,13 @@ Rationale: auth/session work is a recurring cross-repo concern and deserves a di
 Model downstream work as child changes in the owning repos rather than copying implementation details into the top-level proposal.
 Rationale: this keeps the umbrella change focused on sequencing, ownership, and scope while preserving local ownership of API, SDK, and app behavior.
 
+## Rollout Order
+
+1. `dtrpg-api/openspec/changes/define-auth-session-contract` defines token lifecycle, refresh, and auth-error semantics.
+2. `dtrpg-sdk/rust/openspec/changes/define-rust-auth-session-behavior` adapts the API-defined semantics into SDK session lifecycle behavior.
+3. `dtrpg-app/swift/openspec/changes/define-macos-auth-session-recovery` adapts the upstream contract into app-visible session restoration and recovery transitions.
+4. The top-level meta-repository advances child repository pointers only after the dependent child work is present and validated in its owning repository.
+
 ## Risks / Trade-offs
 
 - More artifacts to maintain across repos -> Mitigation: keep the umbrella change narrow and delegate implementation specifics downward.
