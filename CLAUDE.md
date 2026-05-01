@@ -40,6 +40,9 @@ This repository contains two main meta-repositories as git submodules:
 It also contains the `dtrpg-api` repository as a submodule where the API documentation and configuration are
 kept.
 
+The `dtrpg-api` repository is also a submodule of each of the `*-sdk` repositories, so that the `openapi.yaml` spec file
+is maintained in the `dtrpg-api` repository and synchronized to the `*-sdk` repositories through submodule updates.
+
 ## Working with Submodules
 
 ### Initial Setup
