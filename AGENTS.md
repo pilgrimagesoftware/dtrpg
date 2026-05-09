@@ -1,4 +1,4 @@
-    # AGENTS.md
+# AGENTS.md
 
 This file provides guidance to Claude Code (claude.ai/code), Codex (openai.com/codex/), GitHub Copilot (copilot.github.com) when working with code in this repository.
 
@@ -114,7 +114,7 @@ branch creation and merging.
 
 ## Commit Messages
 
-Commit messages follow the "Convention Commits" format: https://www.conventionalcommits.org/en/v1.0.0/
+Commit messages follow the "Conventional Commits" format: https://www.conventionalcommits.org/en/v1.0.0/
 
 ## Architecture Notes
 
