@@ -7,7 +7,9 @@
       "WebFetch(domain:raw.githubusercontent.com)",
       "WebFetch(domain:github.com)",
       "Bash(openspec list *)",
-      "Bash(openspec status *)"
+      "Bash(openspec status *)",
+      "Bash(openspec new *)",
+      "Bash(openspec instructions *)"
     ]
   }
 }
