@@ -14,7 +14,8 @@
       "Bash(cargo test *)",
       "Bash(cargo build *)",
       "Bash(fc-list)",
-      "Bash(fc-list : family)"
+      "Bash(fc-list : family)",
+      "Bash(grep -v \"^$\")"
     ]
   }
 }
