@@ -7,9 +7,8 @@
 
 ## 2. Verification
 
-- [ ] 2.1 Open the app and click the gear button to open the settings panel; confirm the panel appears
-- [ ] 2.2 Click each tab (Account, Storage, File Openers) and confirm only the active section changes — no catalog entry is selected and the detail panel does not open
-- [ ] 2.3 Click the backdrop area outside the modal card and confirm the panel remains open and no catalog/sidebar action fires
-- [ ] 2.4 Click the × close button and confirm the panel closes; then click catalog entries and confirm normal selection behavior resumes
-- [ ] 2.5 Move the mouse over the open settings panel and confirm no catalog rows show hover highlights in the area behind the panel
-
+- [x] 2.1 Open the app and click the gear button to open the settings panel; confirm the panel appears
+- [x] 2.2 Click each tab (Account, Storage, File Openers) and confirm only the active section changes — no catalog entry is selected and the detail panel does not open
+- [x] 2.3 Click the backdrop area outside the modal card and confirm the panel remains open and no catalog/sidebar action fires
+- [x] 2.4 Click the × close button and confirm the panel closes; then click catalog entries and confirm normal selection behavior resumes
+- [x] 2.5 Move the mouse over the open settings panel and confirm no catalog rows show hover highlights in the area behind the panel
