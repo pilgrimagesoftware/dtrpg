@@ -9,7 +9,12 @@
       "Bash(openspec list *)",
       "Bash(openspec status *)",
       "Bash(openspec new *)",
-      "Bash(openspec instructions *)"
+      "Bash(openspec instructions *)",
+      "Bash(cargo check *)",
+      "Bash(cargo test *)",
+      "Bash(cargo build *)",
+      "Bash(fc-list)",
+      "Bash(fc-list : family)"
     ]
   }
 }
