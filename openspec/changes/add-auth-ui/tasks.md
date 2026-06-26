@@ -47,9 +47,9 @@
 ## 7. Verification
 
 - [x] 7.1 Run `cargo test --workspace` and confirm all tests pass
-- [ ] 7.2 Run `cargo clippy --all-targets --all-features -- -D warnings` and fix any warnings
-- [ ] 7.3 Launch the app with no credentials stored; confirm the login window opens
-- [ ] 7.4 Enter an API key and click "Sign In"; confirm tokens are stored (verify with `security find-generic-password -s com.pilgrimagesoftware.dtrpg` on macOS) and the library window opens
-- [ ] 7.5 Open Settings → Account while authenticated; confirm "Signed in to DriveThruRPG" and "Log Out" button are visible
-- [ ] 7.6 Click "Log Out"; confirm credentials are deleted from the keyring and the login window opens
-- [ ] 7.7 Relaunch the app after logout; confirm the login window opens (no credentials present)
+- [x] 7.2 Run `cargo clippy --all-targets --all-features -- -D warnings` and fix any warnings
+- [x] 7.3 Launch the app with no credentials stored; confirm the login window opens
+- [x] 7.4 Enter an API key and click "Sign In"; confirm tokens are stored (verify with `security find-generic-password -s com.pilgrimagesoftware.dtrpg` on macOS) and the library window opens
+- [x] 7.5 Open Settings → Account while authenticated; confirm "Signed in to DriveThruRPG" and "Log Out" button are visible
+- [x] 7.6 Click "Log Out"; confirm credentials are deleted from the keyring and the login window opens
+- [x] 7.7 Relaunch the app after logout; confirm the login window opens (no credentials present)
