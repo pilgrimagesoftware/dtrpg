@@ -1,5 +1,8 @@
-## ADDED Requirements
+# settings-input-isolation Specification
 
+## Purpose
+TBD - created by archiving change settings-overlay-click-capture. Update Purpose after archive.
+## Requirements
 ### Requirement: The settings panel overlay blocks all pointer events from reaching elements beneath it
 When the settings panel is open, the system SHALL prevent any pointer event (mouse down, mouse up, click, hover) from being delivered to any element rendered behind the overlay, including catalog rows, sidebar filters, toolbar buttons, and the notification banner.
 
@@ -16,7 +19,7 @@ When the settings panel is open, the system SHALL prevent any pointer event (mou
 - **THEN** subsequent clicks on catalog entries, toolbar controls, and sidebar filters function normally
 
 ### Requirement: The settings panel overlay does not block scroll events on the catalog
-The system SHOULD allow scroll wheel events to reach the catalog scroll container while the settings panel is open, so that a scroll gesture over the overlay does not silently consume the scroll.
+The system SHALL allow scroll wheel events to reach the catalog scroll container while the settings panel is open, so that a scroll gesture over the overlay does not silently consume the scroll.
 
 #### Scenario: Scroll wheel over open settings panel
 - **WHEN** the settings panel is open and the user scrolls the mouse wheel over the overlay
@@ -28,3 +31,4 @@ No catalog row, sidebar item, or toolbar button SHALL display a hover highlight 
 #### Scenario: Mouse moves over overlay-covered catalog row
 - **WHEN** the settings panel is open and the user moves the mouse over a catalog row position
 - **THEN** the catalog row does not render a hover highlight; the cursor remains a default pointer
+
