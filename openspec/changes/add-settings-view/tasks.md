@@ -4,7 +4,7 @@
 - [x] 1.2 Add `SettingsTab` enum with variants `Account`, `Storage`, `FileOpeners`
 - [x] 1.3 Persist the last-active tab to the app config file on change; restore it on `SettingsController::new()`
 - [x] 1.4 Create `dtrpg-ui/src/ui/views/settings_view.rs` with an overlay panel that renders a tab strip and the active section content
-- [ ] 1.5 Implement the panel backdrop and dismiss-on-Escape keyboard handling; confirm focus does not leak to `LibraryRootView` behind the panel
+- [x] 1.5 Implement the panel backdrop and dismiss-on-Escape keyboard handling; confirm focus does not leak to `LibraryRootView` behind the panel
 - [x] 1.6 Add `SettingsController` as a second `gpui::Entity` in `LibraryRootView`; conditionally render the settings panel overlay when `SettingsController::is_open()` is true
 - [x] 1.7 Add a settings/gear button to the toolbar that toggles `SettingsController::is_open`
 
@@ -13,7 +13,7 @@
 - [x] 2.1 Create `settings_account_view.rs` rendering account identity (from credential store or a stub "Signed in" label if account metadata is not yet available)
 - [x] 2.2 Implement "Log Out" button with a confirmation dialog; on confirm, call the credential store `delete()` and reset app session state
 - [x] 2.3 Implement "Reset API Key" button: clear the API key credential from the store and present the API key entry flow
-- [ ] 2.4 Render an unauthenticated state ("Not signed in" + authenticate prompt) when no valid session is present
+- [x] 2.4 Render an unauthenticated state ("Not signed in" + authenticate prompt) when no valid session is present
 - [x] 2.5 Wire account section to `SettingsController::Account` tab
 
 ## 3. Rust App — Storage Section
