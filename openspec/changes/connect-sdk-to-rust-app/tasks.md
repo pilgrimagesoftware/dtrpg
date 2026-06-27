@@ -30,7 +30,7 @@
 - [x] 4.1 Replace the single `list_order_products` call in `HttpSdkLibraryGateway` with a loop that follows `PaginationLinks.next` until it is `None`
 - [x] 4.2 Accumulate all `data` arrays across pages into a single `Vec<OrderProductItem>`
 - [x] 4.3 Merge `included` publishers across pages, deduplicating by publisher `id`
-- [ ] 4.4 Write a unit test (using a fake gateway) that verifies items from two pages are both present in the `list_items()` output
+- [x] 4.4 Write a unit test (using a fake gateway) that verifies items from two pages are both present in the `list_items()` output
 
 ## 5. Wire LibraryController to the Service
 
@@ -48,13 +48,13 @@
 ## 7. Wire App Entry Point to RustSdkLibraryService
 
 - [x] 7.1 In `dtrpg-core/src/app/mod.rs` (or `main.rs`), replace any stub-based controller construction with `RustSdkLibraryService::from_environment()`
-- [ ] 7.2 Confirm gpui dispatches the `load_list()` call off the main render thread (e.g., via `cx.spawn` or a deferred task); add a spawn wrapper if `block_on` would otherwise block the UI thread
+- [x] 7.2 Confirm gpui dispatches the `load_list()` call off the main render thread (e.g., via `cx.spawn` or a deferred task); add a spawn wrapper if `block_on` would otherwise block the UI thread
 - [x] 7.3 Confirm that if `from_environment()` returns an `UnavailableSdkGateway` (missing env vars), the app starts successfully and displays a `LibraryPaneState::Error` message rather than crashing
 
 ## 8. Verification
 
 - [x] 8.1 Run `cargo test --workspace` and confirm all tests pass
-- [ ] 8.2 Run `cargo clippy --all-targets --all-features -- -D warnings` and fix any warnings
+- [x] 8.2 Run `cargo clippy --all-targets --all-features -- -D warnings` and fix any warnings
 - [ ] 8.3 Set `DTRPG_APPLICATION_KEY`, `DTRPG_ACCESS_TOKEN`, `DTRPG_REFRESH_TOKEN`, and `DTRPG_REFRESH_TOKEN_TTL` in the environment and launch the app; confirm the catalog view populates with real titles
 - [ ] 8.4 Launch the app without any environment variables set; confirm the catalog shows an error state and does not crash
 - [ ] 8.5 Select an item in the catalog and confirm the detail view populates from real data (not stub data)
