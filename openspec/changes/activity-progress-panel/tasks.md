@@ -63,7 +63,7 @@
 
 ## 9. Manual Verification
 
-- [ ] 9.1 Launch the app and observe the sidebar footer — the activity button should be visible showing "✓" at rest
+- [ ] 9.1 Launch the app and observe the sidebar footer — the activity button should be visible showing "✓" at restni
 - [ ] 9.2 Trigger a catalog load (or restart the app) and confirm the button shows "↻ (1)" while loading, then reverts to "✓" when done
 - [ ] 9.3 Click the activity button and confirm the activity panel opens; click it again or the close button and confirm it closes
 - [ ] 9.4 While loading, open the panel and confirm the in-progress "Loading catalog…" item appears with a spinner
