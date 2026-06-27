@@ -55,7 +55,7 @@
 
 - [x] 8.1 Run `cargo test --workspace` and confirm all tests pass
 - [x] 8.2 Run `cargo clippy --all-targets --all-features -- -D warnings` and fix any warnings
-- [ ] 8.3 Set `DTRPG_APPLICATION_KEY`, `DTRPG_ACCESS_TOKEN`, `DTRPG_REFRESH_TOKEN`, and `DTRPG_REFRESH_TOKEN_TTL` in the environment and launch the app; confirm the catalog view populates with real titles
-- [ ] 8.4 Launch the app without any environment variables set; confirm the catalog shows an error state and does not crash
+- [ ] 8.3 **Blocked on `activity-progress-panel`** — once the activity panel is in place, set `DTRPG_APPLICATION_KEY`, `DTRPG_ACCESS_TOKEN`, `DTRPG_REFRESH_TOKEN`, and `DTRPG_REFRESH_TOKEN_TTL` in the environment and launch the app; confirm the activity panel shows an in-progress item and the catalog view populates with real titles on completion
+- [ ] 8.4 Launch the app without any environment variables set; confirm the catalog shows an error state (and an error activity item) and does not crash
 - [ ] 8.5 Select an item in the catalog and confirm the detail view populates from real data (not stub data)
 - [ ] 8.6 Confirm the API ordering semantics (newest-first vs. oldest-first) and adjust `added_order` derivation if the assumption was wrong
