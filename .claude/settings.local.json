@@ -1,26 +1,31 @@
 {
-    "permissions": {
-        "allow": [
-            "Bash(code:*)",
-            "Bash(git submodule:*)",
-            "WebSearch",
-            "WebFetch(domain:raw.githubusercontent.com)",
-            "WebFetch(domain:github.com)",
-            "Bash(openspec list *)",
-            "Bash(openspec status *)",
-            "Bash(openspec new *)",
-            "Bash(openspec instructions *)",
-            "Bash(cargo check *)",
-            "Bash(cargo test *)",
-            "Bash(cargo build *)",
-            "Bash(fc-list)",
-            "Bash(fc-list : family)",
-            "Bash(grep -v \"^$\")",
-            "Bash(openspec --help)",
-            "Bash(openspec change *)",
-            "Bash(openspec archive *)",
-            "Bash(cargo clippy *)",
-            "Bash(cargo metadata *)"
-        ]
-    }
+  "permissions": {
+    "allow": [
+      "Bash(code:*)",
+      "Bash(git submodule:*)",
+      "WebSearch",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "WebFetch(domain:github.com)",
+      "Bash(openspec list *)",
+      "Bash(openspec status *)",
+      "Bash(openspec new *)",
+      "Bash(openspec instructions *)",
+      "Bash(cargo check *)",
+      "Bash(cargo test *)",
+      "Bash(cargo build *)",
+      "Bash(fc-list)",
+      "Bash(fc-list : family)",
+      "Bash(grep -v \"^$\")",
+      "Bash(openspec --help)",
+      "Bash(openspec change *)",
+      "Bash(openspec archive *)",
+      "Bash(cargo clippy *)",
+      "Bash(cargo metadata *)",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\([\\(a['id'],a['status']\\) for a in d['artifacts']]\\)\")",
+      "Bash(python3 -c \"import sys,json; d=json.load\\(sys.stdin\\); print\\(json.dumps\\([\\(a['id'],a['status']\\) for a in d['artifacts']], indent=2\\)\\)\")",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\([\\(a['id'],a['status']\\) for a in d['artifacts']]\\)\")",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\('applyRequires:', d['applyRequires']\\); print\\('artifacts:', [\\(a['id'],a['status']\\) for a in d['artifacts']]\\)\")",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(d['instruction'][:500]\\)\")"
+    ]
+  }
 }
