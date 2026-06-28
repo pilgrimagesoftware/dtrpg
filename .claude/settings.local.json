@@ -1,21 +1,26 @@
 {
-  "permissions": {
-    "allow": [
-      "Bash(code:*)",
-      "Bash(git submodule:*)",
-      "WebSearch",
-      "WebFetch(domain:raw.githubusercontent.com)",
-      "WebFetch(domain:github.com)",
-      "Bash(openspec list *)",
-      "Bash(openspec status *)",
-      "Bash(openspec new *)",
-      "Bash(openspec instructions *)",
-      "Bash(cargo check *)",
-      "Bash(cargo test *)",
-      "Bash(cargo build *)",
-      "Bash(fc-list)",
-      "Bash(fc-list : family)",
-      "Bash(grep -v \"^$\")"
-    ]
-  }
+    "permissions": {
+        "allow": [
+            "Bash(code:*)",
+            "Bash(git submodule:*)",
+            "WebSearch",
+            "WebFetch(domain:raw.githubusercontent.com)",
+            "WebFetch(domain:github.com)",
+            "Bash(openspec list *)",
+            "Bash(openspec status *)",
+            "Bash(openspec new *)",
+            "Bash(openspec instructions *)",
+            "Bash(cargo check *)",
+            "Bash(cargo test *)",
+            "Bash(cargo build *)",
+            "Bash(fc-list)",
+            "Bash(fc-list : family)",
+            "Bash(grep -v \"^$\")",
+            "Bash(openspec --help)",
+            "Bash(openspec change *)",
+            "Bash(openspec archive *)",
+            "Bash(cargo clippy *)",
+            "Bash(cargo metadata *)"
+        ]
+    }
 }
