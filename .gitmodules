@@ -7,3 +7,6 @@
 [submodule "dtrpg-api"]
 	path = dtrpg-api
 	url = git@github.com:pilgrimagesoftware/dtrpg-api.git
+[submodule "dtrpg-design"]
+	path = dtrpg-design
+	url = git@github.com:pilgrimagesoftware/dtrpg-design.git
