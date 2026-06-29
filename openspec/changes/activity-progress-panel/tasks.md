@@ -63,10 +63,10 @@
 
 ## 9. Manual Verification
 
-- [ ] 9.1 Launch the app and observe the sidebar footer — the activity button should be visible showing "✓" at restni
-- [ ] 9.2 Trigger a catalog load (or restart the app) and confirm the button shows "↻ (1)" while loading, then reverts to "✓" when done
-- [ ] 9.3 Click the activity button and confirm the activity panel opens; click it again or the close button and confirm it closes
-- [ ] 9.4 While loading, open the panel and confirm the in-progress "Loading catalog…" item appears with a spinner
-- [ ] 9.5 After loading, confirm the panel shows "Loading catalog…" as a completed item with a checkmark
-- [ ] 9.6 Select a catalog item and confirm a "Loading item…" activity appears and resolves in the panel
-- [ ] 9.7 (If credentials are missing) confirm an error activity item appears in the panel showing the error message
+- [x] 9.1 Launch the app and observe the sidebar footer — the activity button should be visible showing "✓" at restni
+- [x] 9.2 Trigger a catalog load (or restart the app) and confirm the button shows "↻ (1)" while loading, then reverts to "✓" when done
+- [x] 9.3 Click the activity button and confirm the activity panel opens; click it again or the close button and confirm it closes
+- [x] 9.4 While loading, open the panel and confirm the in-progress "Loading catalog…" item appears with a spinner
+- [x] 9.5 After loading, confirm the panel shows "Loading catalog…" as a completed item with a checkmark
+- [x] 9.6 Select a catalog item and confirm a "Loading item…" activity appears and resolves in the panel
+- [x] 9.7 (If credentials are missing) confirm an error activity item appears in the panel showing the error message
