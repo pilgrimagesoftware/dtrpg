@@ -44,10 +44,10 @@
 
 ## 6. Verification
 
-- [ ] 6.1 Run `DTRPG_AUTH_STATE_OVERRIDE=unauthenticated cargo run`; confirm the amber banner appears below the toolbar with "Not signed in" and a "Set Up Account" button
-- [ ] 6.2 Click "Set Up Account"; confirm the settings panel opens on the Account tab
-- [ ] 6.3 Click the × dismiss button; confirm the banner disappears
-- [ ] 6.4 Run `DTRPG_AUTH_STATE_OVERRIDE=expired cargo run`; confirm the "Session expired" banner appears and "Sign In Again" opens the Account tab
-- [ ] 6.5 Run `DTRPG_AUTH_STATE_OVERRIDE=authenticated cargo run`; confirm no banner is rendered and the catalog fills the full content height
-- [ ] 6.6 Run `cargo check -p dtrpg-ui` and confirm zero errors
-- [ ] 6.7 Run `cargo test -p dtrpg-ui` and confirm `AuthStateController` unit tests pass
+- [x] 6.1 Run `DTRPG_AUTH_STATE_OVERRIDE=unauthenticated cargo run`; confirm the amber banner appears below the toolbar with "Not signed in" and a "Set Up Account" button
+- [x] 6.2 Click "Set Up Account"; confirm the settings panel opens on the Account tab
+- [x] 6.3 Click the × dismiss button; confirm the banner disappears
+- [x] 6.4 Run `DTRPG_AUTH_STATE_OVERRIDE=expired cargo run`; confirm the "Session expired" banner appears and "Sign In Again" opens the Account tab
+- [x] 6.5 Run `DTRPG_AUTH_STATE_OVERRIDE=authenticated cargo run`; confirm no banner is rendered and the catalog fills the full content height
+- [x] 6.6 Run `cargo check -p dtrpg-ui` and confirm zero errors
+- [x] 6.7 Run `cargo test -p dtrpg-ui` and confirm `AuthStateController` unit tests pass
