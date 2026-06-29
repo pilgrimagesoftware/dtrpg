@@ -1,0 +1,8 @@
+[
+    {
+        "label": "Run DTRPG Core (Rust)",
+        "cwd": "${ZED_WORKTREE_ROOT}/dtrpg-app/rust",
+        "command": "cargo run -p dtrpg-core",
+        "use_new_terminal": true,
+    },
+]
