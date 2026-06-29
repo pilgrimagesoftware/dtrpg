@@ -14,7 +14,10 @@ This repository contains two main meta-repositories as git submodules:
   - `rust` - Rust-based desktop application (macOS, Windows, Linux; gpui UI framework)
   - `swift` - Swift-based desktop application (macOS)
 
-It also contains the `dtrpg-api` repository as a submodule where the API documentation and configuration are kept.
+It also contains the `dtrpg-api` repository as a submodule where the API documentation and 
+configuration are kept. This repository is a submodule of several of the other repositories,
+so that any repo that needs access to the API documentation can simply update the submodule
+and get the latest version.
 
 ## Branches
 
