@@ -30,7 +30,7 @@
 
 ## 5. Manual Verification
 
-- [ ] 5.1 Launch the app with no credentials — confirm the button shows "○" (idle) before any load attempt, then switches to "↻ (1)" during the load, then "●" after the error resolves, then back to "○" after 15 seconds
-- [ ] 5.2 Launch the app with valid credentials — confirm "↻ (1)" during catalog load, "●" after completion, "○" after 15 seconds
-- [ ] 5.3 Open the activity panel while "●" is showing and confirm the completed item is visible; wait 15 seconds and confirm it disappears and the panel shows the empty state
-- [ ] 5.4 Confirm the button never shows "✓" in any state
+- [x] 5.1 Launch the app with no credentials — confirm the button shows "○" (idle) before any load attempt, then switches to "↻ (1)" during the load, then "●" after the error resolves, then back to "○" after 15 seconds
+- [x] 5.2 Launch the app with valid credentials — confirm "↻ (1)" during catalog load, "●" after completion, "○" after 15 seconds
+- [x] 5.3 Open the activity panel while "●" is showing and confirm the completed item is visible; wait 15 seconds and confirm it disappears and the panel shows the empty state
+- [x] 5.4 Confirm the button never shows "✓" in any state
