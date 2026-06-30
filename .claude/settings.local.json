@@ -26,7 +26,15 @@
       "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\([\\(a['id'],a['status']\\) for a in d['artifacts']]\\)\")",
       "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\('applyRequires:', d['applyRequires']\\); print\\('artifacts:', [\\(a['id'],a['status']\\) for a in d['artifacts']]\\)\")",
       "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(d['instruction'][:500]\\)\")",
-      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(d['instruction']\\)\")"
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(d['instruction']\\)\")",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); [print\\(t['done'], t['description']\\) for t in d['tasks'] if not t['done']]\")",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); [print\\(t['done'], t['description'][:90]\\) for t in d['tasks'] if not t['done']]\")",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(d['progress']\\); [print\\(t['done'], t['description'][:90]\\) for t in d['tasks'][:6] if not t['done']]\")",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); [print\\(t['done'], t['description'][:90]\\) for t in d['tasks']]\")",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); [print\\(t['done'], t['description'][:100]\\) for t in d['tasks'] if not t['done']]\")",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); [print\\(p['name'], p.get\\('manifest_path',''\\)\\) for p in d['packages'] if 'gpui' in p['name'].lower\\(\\)]\")",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); [print\\(t['done'], t['description'][:100]\\) for t in d['tasks'][:8]]\")",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(d['state']\\); print\\(d['progress']\\); [print\\(t['done'], t['description'][:90]\\) for t in d['tasks'][:8]]\")"
     ]
   }
 }
