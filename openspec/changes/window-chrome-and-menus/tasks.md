@@ -36,12 +36,12 @@
 
 ## 6. Verification
 
-- [ ] 6.1 Build and launch the app; click and drag the empty toolbar area and confirm the window moves
+- [x] 6.1 Build and launch the app; click and drag the empty toolbar area and confirm the window moves
 - [x] 6.2 Verify the macOS menu bar shows: Libri | Edit | View | Window | Help
 - [x] 6.3 Press ⌘Q and confirm the app quits
-- [ ] 6.4 Press ⌘, and confirm the settings panel opens
+- [x] 6.4 Press ⌘, and confirm the settings panel opens
 - [x] 6.5 Press ⌘H and confirm the app windows hide (app remains running in Dock)
-- [ ] 6.6 Press ⌘M and confirm the window minimizes to the Dock
-- [ ] 6.7 Press ⌃⌘F and confirm the window enters/exits full-screen mode
-- [ ] 6.8 Click in the search field, type some text, then use ⌘A / ⌘C / Edit menu Copy and confirm the text is copied to the clipboard
+- [x] 6.6 Press ⌘M and confirm the window minimizes to the Dock
+- [x] 6.7 Press ⌃⌘F and confirm the window enters/exits full-screen mode
+- [x] 6.8 Click in the search field, type some text, then use ⌘A / ⌘C / Edit menu Copy and confirm the text is copied to the clipboard
 - [x] 6.9 Run `cargo check -p dtrpg-ui` and confirm zero errors

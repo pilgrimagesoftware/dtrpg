@@ -22,7 +22,7 @@
 
 ## 5. Manual Verification
 
-- [ ] 5.1 Launch the app with credentials missing or a service error and confirm no crash; verify the loading/error state still appears correctly
+- [x] 5.1 Launch the app with credentials missing or a service error and confirm no crash; verify the loading/error state still appears correctly
 - [ ] 5.2 Launch the app with an account that has items; confirm the normal catalog renders
 - [ ] 5.3 Type a search query that matches nothing and confirm "No titles match." + "Try clearing your search." appears
 - [ ] 5.4 Select a sidebar filter section that has no items (e.g., "On Device" with nothing downloaded) and confirm "No titles match." + "Try selecting a different section." appears
