@@ -42,7 +42,20 @@
       "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(d['resolvedOutputPath']\\)\")",
       "Bash(python3 -c ' *)",
       "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\([f['path'] for f in d.get\\('contextFiles',[]\\)]\\)\")",
-      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(json.dumps\\(d.get\\('contextFiles',[]\\), indent=2\\)\\)\")"
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(json.dumps\\(d.get\\('contextFiles',[]\\), indent=2\\)\\)\")",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); [print\\(t['description'], '-', 'DONE' if t['done'] else 'TODO'\\) for t in d['tasks'] if not t['done']]\")",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); [print\\(t['description']\\) for t in d['tasks'] if not t['done']]\")",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); todos=[t for t in d['tasks'] if not t['done']]; print\\(f'{len\\(todos\\)} remaining:'\\); [print\\(' -', t['description'][:120]\\) for t in todos]\")",
+      "Bash(python3 -c \"import json,sys; changes=json.load\\(sys.stdin\\); [print\\(c['name'], c.get\\('status',''\\)\\) for c in changes]\")",
+      "Bash(python3 -c \"import json,sys; s=json.load\\(sys.stdin\\); [print\\(a['id'], a['status']\\) for a in s['artifacts']]\")",
+      "Bash(python3 -c \"import json,sys; s=json.load\\(sys.stdin\\); print\\('applyRequires:', s['applyRequires']\\); [print\\(a['id'], a['status']\\) for a in s['artifacts']]\")",
+      "Bash(python3 -c \"import json,sys; s=json.load\\(sys.stdin\\); print\\('state:', s['state']\\); print\\('total:', s['progress']['total']\\); [print\\(t['id'], t['done'], t['description'][:80]\\) for t in s['tasks'][:5]]\")",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\('applyRequires:', d['applyRequires']\\); [print\\(a['id'], a['status']\\) for a in d['artifacts']]\")",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(d['instruction']\\); print\\('---'\\); print\\(d['template']\\)\")",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); [print\\(a['id'], a['status']\\) for a in d['artifacts']]\")",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(json.dumps\\([\\(a['id'], a['status']\\) for a in d['artifacts']], indent=2\\)\\)\")",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(d['outputPath']\\)\")",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(d['template']\\)\")"
     ]
   }
 }
