@@ -23,7 +23,7 @@
 
 ## 4. Rust App — Multi-File Item Handling
 
-- [ ] 4.1 Confirm with `dtrpg-api` / `dtrpg-sdk` whether a "primary file" field exists in the catalog item model
+- [x] 4.1 Confirm with `dtrpg-api` / `dtrpg-sdk` whether a "primary file" field exists in the catalog item model
 - [ ] 4.2 If a primary file is designated, open it directly; if not, present a file-selection sheet/popover listing available downloaded files
 - [ ] 4.3 Implement the file-selection popover in gpui, listing each file's name and format
 - [ ] 4.4 Wire popover selection to `ItemOpener::open` with the chosen file's path
