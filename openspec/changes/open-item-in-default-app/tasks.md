@@ -1,25 +1,25 @@
 ## 1. Rust App — Setup and ItemOpener Service
 
-- [ ] 1.1 Add `open` crate dependency to `dtrpg-app/rust/Cargo.toml`
-- [ ] 1.2 Create an `ItemOpener` struct (or module) in `dtrpg-app/rust` that wraps `open::that(path)`
-- [ ] 1.3 Define an `OpenError` error enum with variants for: `FileNotFound`, `NoDefaultApp`, `OsFailed(String)`, and `MultipleFilesRequireSelection`
-- [ ] 1.4 Implement `ItemOpener::open(path: &Path) -> Result<(), OpenError>` mapping `open` crate errors to `OpenError`
-- [ ] 1.5 Write unit tests for `ItemOpener` covering the success path and each error variant (mock the `open` call where necessary)
+- [x] 1.1 Add `open` crate dependency to `dtrpg-app/rust/Cargo.toml`
+- [x] 1.2 Create an `ItemOpener` struct (or module) in `dtrpg-app/rust` that wraps `open::that(path)`
+- [x] 1.3 Define an `OpenError` error enum with variants for: `FileNotFound`, `NoDefaultApp`, `OsFailed(String)`, and `MultipleFilesRequireSelection`
+- [x] 1.4 Implement `ItemOpener::open(path: &Path) -> Result<(), OpenError>` mapping `open` crate errors to `OpenError`
+- [x] 1.5 Write unit tests for `ItemOpener` covering the success path and each error variant (mock the `open` call where necessary)
 
 ## 2. Rust App — Catalog View Integration
 
-- [ ] 2.1 Identify the catalog list/grid item component in `dtrpg-app/rust` and confirm where download state is accessible
-- [ ] 2.2 Add an "Open" affordance (button or context menu item) to the catalog item row/card, visible only when `downloadState == downloaded`
-- [ ] 2.3 Replace or hide the "Open" affordance with a "Download" prompt when the item has not been downloaded
-- [ ] 2.4 Wire the "Open" affordance to call `ItemOpener::open` with the item's local file path
-- [ ] 2.5 Display an error dialog/notification when `ItemOpener::open` returns an error, including a "Re-download" option for `FileNotFound`
+- [x] 2.1 Identify the catalog list/grid item component in `dtrpg-app/rust` and confirm where download state is accessible
+- [x] 2.2 Add an "Open" affordance (button or context menu item) to the catalog item row/card, visible only when `downloadState == downloaded`
+- [x] 2.3 Replace or hide the "Open" affordance with a "Download" prompt when the item has not been downloaded
+- [x] 2.4 Wire the "Open" affordance to call `ItemOpener::open` with the item's local file path
+- [x] 2.5 Display an error dialog/notification when `ItemOpener::open` returns an error, including a "Re-download" option for `FileNotFound`
 
 ## 3. Rust App — Detail View Integration
 
-- [ ] 3.1 Identify the catalog item detail view component in `dtrpg-app/rust`
-- [ ] 3.2 Add a primary "Open" button to the detail view when the item is downloaded; show "Download" button otherwise
-- [ ] 3.3 Wire the "Open" button to `ItemOpener::open` with the item's local file path
-- [ ] 3.4 Display an error dialog when `ItemOpener::open` returns an error from the detail view
+- [x] 3.1 Identify the catalog item detail view component in `dtrpg-app/rust`
+- [x] 3.2 Add a primary "Open" button to the detail view when the item is downloaded; show "Download" button otherwise
+- [x] 3.3 Wire the "Open" button to `ItemOpener::open` with the item's local file path
+- [x] 3.4 Display an error dialog when `ItemOpener::open` returns an error from the detail view
 
 ## 4. Rust App — Multi-File Item Handling
 
