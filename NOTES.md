@@ -35,3 +35,13 @@ A place to keep track of things to tell the robot when limits are reached
 - Add a "clear cache" item to the settings view in a new "Advanced" section
 - Add an About dialog from the application menu 
 - Add an "About" section to the settings view
+- Grouped list view does not use a data table 
+  - Scrolling is laggy; probably solved by using the proper component
+- Add menu items for:
+  - Selecting catalog view mode
+  - Sorting: attribute, ascending/descending, grouping by publisher
+  - Search
+- Table coloring for list view should match surrounding area
+- Page count in detail view always shows 0; mapping error?
+- If catalog item's kind is a badge, it should be an icon with a tooltip; otherwise, it should be a regular text label in a separate column
+- Visually separate the titlebar area and position the application title and other controls within it
