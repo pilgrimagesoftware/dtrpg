@@ -1,4 +1,4 @@
-# UI Layout Ideas
+# UI Layout Revamp
 
 - See gpui-components gallery demo
 
