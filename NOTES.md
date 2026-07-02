@@ -9,16 +9,7 @@ A place to keep track of things to tell the robot when limits are reached
 - "Window" menu 
   - Show activity
   - Show alert history
-- Count value for catalog title
-  - Total count of items in catalog when not filtered
-  - Filter count / total count when filtered
-- Remove button for file openers item does not work
 - Account view in settings and Avatar menu *still* do not show user info
 - Detail view close button does not show up
-- Collections and Publishers sections do not remember their collapsed state
-- Triggering a reload from the menu doubles the catalog content
-- Detail view contents do not scroll
-- Collections and Publishers sections each need their own search widget
-  - Just a magnifying glass icon, when clicked expands to a full-width search bar
-  - Filter contents of section, do not persist across sessions
 - Implement Alert history view
+- Activity panel entry for loading catalog does not update its progress
