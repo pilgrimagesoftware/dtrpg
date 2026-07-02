@@ -12,4 +12,3 @@ A place to keep track of things to tell the robot when limits are reached
 - Account view in settings and Avatar menu *still* do not show user info
 - Detail view close button does not show up
 - Implement Alert history view
-- Activity panel entry for loading catalog does not update its progress
