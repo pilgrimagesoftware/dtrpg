@@ -12,3 +12,12 @@ A place to keep track of things to tell the robot when limits are reached
 - Account view in settings and Avatar menu *still* do not show user info
 - Detail view close button does not show up
 - Implement Alert history view
+- Localizations missing:
+  - "Collections" - section title 
+  - "Collection" - catalog title 
+  - "X items" - catalog item count
+  - Pagination labels
+  - "Search..." - search bar placeholder
+  - "X titles" - sidebar text at bottom
+  - Autofill, dictation, emoji menu items
+  - "Updated <date>" label in detail view
