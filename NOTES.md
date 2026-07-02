@@ -2,6 +2,12 @@
 
 A place to keep track of things to tell the robot when limits are reached
 
+Prompt for the robot
+
+```
+identify changes or create them, work through the list; some items might already be complete; some changes have been completed in the interim, archive if so
+```
+
 Last triaged 2026-07-02 against `dtrpg-app/rust` source + openspec. Items confirmed
 implemented were removed; remaining items are unresolved and annotated with the
 relevant openspec change (if one already exists) or a note on why no change exists yet.
@@ -32,6 +38,79 @@ relevant openspec change (if one already exists) or a note on why no change exis
   `dtrpg-core/src/services/sdk.rs` (`file_extension_label`), with regression tests
   `map_order_product_derives_format_from_file_extension_not_title` and
   `map_order_product_joins_multiple_distinct_extensions`.
+- Fixed: page size control was missing from the pagination area. Added a "N / page"
+  dropdown (`render_page_size_selector` in `ui/views/catalog_view.rs`) wired to the
+  existing `LibraryController::set_page_size`. The pagination bar now also renders
+  whenever the catalog is non-empty (not just when there's more than one page), so the
+  selector is reachable even on a single page of results.
+- Fixed: pagination "First"/"Last" button labels were hardcoded English strings. Now
+  routed through `t!()` with new keys `catalog.pagination_first` / `pagination_last` in
+  en/de/fr.
+- Fixed: the "About" menu action was a no-op stub. `LibraryRootView` now handles it via
+  `window.open_dialog`, showing app name, version (`CARGO_PKG_VERSION`), and a short
+  description (new `about.*` i18n keys).
+- Added: "Advanced" settings page with a "Clear Cache" button (confirmation via
+  `window.open_alert_dialog`, following the existing file-openers-removal pattern).
+  `SettingsController::clear_cache` deletes `app_cache_dir()` (catalog/collections cache
+  + cached avatar); downloaded content, credentials, and preferences are untouched.
+- Added: "About" settings page mirroring the About dialog content, satisfying both
+  "About dialog from the app menu" and "About section in Settings" in one implementation
+  (`ui/views/settings_advanced_view.rs`).
+- Added: "Refresh Thumbnails" item to the Catalog menu (`RefreshThumbnails` action) and a
+  per-item "Refresh thumbnail" icon button on the detail panel's cover image. Both reuse
+  the existing thumbnail queue (`LibraryController::load_thumbnail` for the single-item
+  case, new `refresh_all_thumbnails` for the bulk case) — neither skips already-cached
+  items, unlike the normal enqueue path.
+- Fixed: the detail view's "Status" field was a plain text row in the metadata table.
+  Replaced with a checkmark/cloud icon next to the item title (tooltip carries the same
+  text) via `render_status_icon` in `ui/views/detail_panel_view.rs`.
+- Fixed: the large "Read"/"Download"/"Reveal" buttons in the detail view are now compact
+  icon buttons (`IconName::BookOpen` / `ArrowDown`/`CircleCheck` / `FolderOpen`) with
+  tooltips, using the gpui-component `Button::icon()` API instead of full-width labeled
+  buttons.
+- Fixed: activity panel's bottom-left corner nudged up and right
+  (`bottom(px(44))` → `bottom(px(56))`, `left_0()` → `left(px(8))`) in
+  `ui/views/activity_panel_view.rs`.
+- Added: View menu items for catalog presentation (List/Thumbs/Grid), sort
+  (Title/Publisher/Date Added/Pages, Ascending/Descending, Group by Publisher), and a
+  "Find in Library" item that focuses the search input — new actions in `ui/actions.rs`
+  (`ViewAsList`, `SortByTitle`, `ToggleGroupByPublisher`, `FocusSearch`, etc.), handled in
+  `ui/views/root_view.rs`, calling the same `LibraryController` methods the toolbar
+  dropdowns already use.
+- Confirmed already implemented: a "load thumbnail" button with tooltip exists on the
+  detail panel's cover image (`detail-refresh-thumbnail` in `detail_panel_view.rs`); it
+  fetches on first load and re-fetches when already cached, so it covers both "load" and
+  "refresh" cases with one control.
+- Confirmed already implemented: the disabled "Read" button already shows a
+  `detail.tooltip_download_first` hint via `Button::tooltip`.
+- Fixed (2026-07-02): clicks inside the alert history panel passed through to the
+  catalog view underneath — the panel's root `div` was missing `.occlude()` (present on
+  the equivalent settings/detail panel overlays but not this one). Added in
+  `ui/views/alert_history_view.rs`.
+- Fixed (2026-07-02): "Clear Cache" only deleted on-disk cache files;
+  `LibraryController`'s in-memory catalog/collections were untouched, so cleared content
+  stayed visible until an unrelated reload (and even then wouldn't repopulate cleanly
+  since the disk cache it reads from was gone). `SettingsController::clear_cache` now
+  emits a `CacheCleared` event; `LibraryController::clear_and_reload` (new) drops the
+  in-memory catalog/collections and forces a live re-fetch. This also addresses the
+  "Reload disabled after cache clear" report — the menu item was never actually disabled
+  by app code, but reload after a cache clear previously reloaded from a now-missing
+  cache file into a catalog that had never been cleared, which likely read as "stuck".
+- Fixed (2026-07-02): View menu's presentation and sort items were a single flat list.
+  Grouped into "Presentation" (List/Thumbs/Grid) and "Sort" (Title/Publisher/Date
+  Added/Pages, Ascending/Descending, Group by Publisher) submenus via
+  `MenuItem::submenu` in `ui/app/mod.rs`, with matching en/de/fr label updates.
+- Fixed (2026-07-02): table coloring in the ungrouped list view didn't match the app —
+  the catalog `DataTable` reads its row/header/stripe colors from
+  `cx.theme()` (`gpui_component::Theme`), a separate global from `LibriTheme` that was
+  never synced with the active Libri palette, so the table always rendered with
+  `gpui-component`'s default light colors regardless of theme (most visibly wrong on the
+  dark "Ink" theme). Added `apply_table_colors` in `data/theme.rs`, which overrides just
+  the `table*` fields on both `Theme.colors` and `Theme.tokens` (the latter is what
+  `DataTable` actually reads) from the active `ColorTokens`. Called at startup
+  (`ui/app/mod.rs::setup`) and whenever the user switches themes
+  (`LibraryController::set_theme`). The grouped list view was already correct — it
+  hand-rolls rows directly from `ColorTokens`, unrelated to this global.
 
 ## Known API limitation (not a bug)
 
@@ -41,47 +120,41 @@ relevant openspec change (if one already exists) or a note on why no change exis
 
 ## Still open
 
-- The page size control is missing from the pagination area (`ui/views/catalog_view.rs`
-  only renders First/Pagination/Last — no per-page selector). No existing openspec change.
-- Pagination "First"/"Last" button labels are hardcoded English strings, not run through
-  `t!()` — localization gap.
 - Catalog items may bleed off the right edge instead of reflowing — grid uses `flex_wrap`
   already; needs visual re-verification against current layout before treating as a bug.
 - Localizations still missing: autofill/dictation/emoji menu items (OS-provided, may not
   be controllable), "Updated <date>" label wording in detail view.
-- Add a "Refresh thumbnails" item to the Catalog menu — not present in
-  `openspec/specs/catalog-menu` or the app menu. No existing change; needs one.
-- Add a "Refresh thumbnail" button to the detail view — not found in
-  `ui/views/detail_panel_view.rs`. No existing change; needs one.
-- Move the bottom-left corner of the activity view up and to the right slightly —
-  cosmetic; change `activity-panel-improvements` (18/25 done) may already cover related
-  layout work — check before creating a new change.
-- Remove the "status" data in the detail view and replace with an icon next to the item
-  title — currently rendered as a text field (`detail.field_status`); no existing change.
-- Replace the large "Read" and "Download" buttons with icon buttons (with tooltips) — see
-  `detail-read-button-state` (6/8 done) and `file-openers-button-ux` (11/14 done); check
-  whether either already covers this before creating a new change.
-- Add a "Clear cache" item to Settings in a new "Advanced" section — not found anywhere
-  in `crates/dtrpg-ui/src`. No existing change; needs one.
-- Add an About dialog from the application menu — the `About` action exists in the menu
-  bar but its handler is a no-op stub (`cx.on_action::<About>(|_, _cx| {})` in
-  `ui/app/mod.rs`). No existing change; needs one.
-- Add an "About" section to the Settings view — not found. No existing change.
 - Grouped list view does not use `DataTable` — confirmed: `catalog_view.rs`'s
   `(CatalogPresentation::List, true)` branch still hand-rolls
   `render_group_header`/`render_grouped_list_header`/`render_grouped_list_row` instead of
   the virtualized `DataTable` used by the ungrouped branch. Likely cause of laggy
   scrolling. Candidate changes: `gpui-component-view-rework` (26/32),
   `catalog-virtualized-rendering` (23/29) — check scope before creating a new change.
-- Add menu items for: selecting catalog view mode, sorting (attribute,
-  ascending/descending, group by publisher), and search — confirmed absent from
-  `ui/app/mod.rs`; these currently only exist as toolbar controls. No existing change.
-- Table coloring for list view should match surrounding area — needs visual check;
-  `catalog-list-column-alignment` (19/21 done) may be adjacent but is about alignment,
-  not color.
+  This is the largest remaining item — a real refactor, not a small fix.
 - If a catalog item's kind is a "badge" type, render as icon + tooltip; otherwise render
   as a plain text label in a separate column — not verified against current
   `render_grid`/list row rendering; needs investigation.
 - Visually separate the titlebar area and position the app title/controls within it —
   `ui-layout-fixes` change shows 8/8 tasks done; verify visually whether this specific
   item was in scope, otherwise needs a new change.
+- Rich-text tooltip for the read button's "download this item first" hint (lighter
+  color, smaller font) — not straightforward: `gpui-component`'s `Button::tooltip` only
+  accepts a plain `SharedString`, not a `Tooltip::element` builder. Achieving styled text
+  would mean dropping `Button` for this control and hand-rolling a div with its own
+  click/hover/disabled states plus a custom tooltip, which risks losing the existing
+  disabled-state styling without a way to visually verify the result here. Left open;
+  do this one interactively with visual feedback rather than blind.
+- Make all text fields' content selectable and copyable — not verified against current
+  `Input`/`InputState` usage; needs investigation into whether `gpui-component`'s input
+  widgets already support selection or need an explicit flag.
+- Cache clear should cancel in-progress thumbnail loads and catalog loading.
+- Add sub-progress text to catalog load activity item message:
+  - "Getting count of items"
+  - "Loading collections"
+  - "Loading library"
+  - Etc.
+- Put a question mark "?" for the collection count until it's known (e.g. after "Loading collections")
+- Thumb view item rows should extend full width of the table, not just the text content
+- List view table header text should be vertically centered in the header cell
+- Presentation, Sort, and Find in Library menu items or submenu items are all disabled when they should not be
+- If there is no page information, or it doesn't make sense for the type of item, don't show it in the detail view
