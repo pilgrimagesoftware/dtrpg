@@ -41,13 +41,6 @@ identify changes or create them, work through the list; some items might already
 - Use "loading" capability on list and other content views
 - Use "sections" on list views for publisher grouping
 - Make the rich tooltip title bold 
-- Reorganize detail view contents
-  - Move file size to the right of format
-  - Move category to the bottom; add category icon to the left of the category name
-  - Move release date to the right of system
-  - Add list of files for multi-file catalog entries
-  - Hide the "Read" button if the entry has multiple files and show a "Read" button next to each file in the list instead
-  - Cover image bleeds to the left into the sidebar
 
 - "Refresh thumbnails" menu item does nothing — traced the full path
   (`RefreshThumbnails` action → `LibraryController::refresh_all_thumbnails` →
