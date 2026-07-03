@@ -59,3 +59,12 @@ identify changes or create them, work through the list; some items might already
 - Use "sections" on list views for publisher grouping
 - Use gpui-components Progress for activity button content (sum of all active loaders)
 - Detail view should be thumbnail on the left, information on the right
+- Application title is underneath stoplights
+- Redundant application title at top of left sidebar
+- Activity panel should be near activity panel button
+- Catalog contents do not incrementally update during loading
+- Missing "X items" text in status bar items
+- Activity button in status bar is supposed to be a circular progress indicator
+- Catalog cache files not written until loading is complete
+- Detail popover jumps around with mouse movement
+- "Refresh thumbnails" menu item does nothing
