@@ -1,8 +1,16 @@
+## 0. Status: Deferred
+
+Blocked on confirmed `gpui-component` / `gpui-ce` API incompatibility (10 broken `Styled` call sites in
+`gpui-component`'s `main` branch — see Findings in `design.md`). Deferred until `gpui-component` (or a
+fork) targets `gpui-ce`, or a decision is made to maintain a private `gpui-component` fork. Do not resume
+without re-checking whether upstream `gpui-component` has moved.
+
 ## 1. Feasibility
 
-- [ ] 1.1 Confirm `gpui-ce` repository/crate coordinates and current API surface
-- [ ] 1.2 Confirm `gpui-component` (`longbridge/gpui-component`) compatibility with `gpui-ce`; identify a
-  fork or branch if the current source is upstream-`gpui`-specific
+- [x] 1.1 Confirm `gpui-ce` repository/crate coordinates and current API surface
+- [x] 1.2 Confirm `gpui-component` (`longbridge/gpui-component`) compatibility with `gpui-ce`; identify a
+  fork or branch if the current source is upstream-`gpui`-specific — **confirmed incompatible**, see
+  `design.md` Findings
 
 ## 2. Dependency Swap
 
