@@ -2,9 +2,7 @@
 
 ### Requirement: Data fields render as selectable text
 
-Fields that display catalog or account data (item titles, descriptions, publisher names, order/product
-IDs, error and alert messages, read-only settings values) SHALL render using a selectable text primitive
-so the user can click-drag to select and copy the value with the OS copy shortcut.
+Fields that display catalog or account data SHALL render using a selectable text primitive so the user can click-drag to select and copy the value with the OS copy shortcut. This applies to item titles, descriptions, publisher names, order/product IDs, error and alert messages, and read-only settings values.
 
 #### Scenario: Selecting an item title in the detail panel
 
