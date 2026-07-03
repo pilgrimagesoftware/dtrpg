@@ -26,9 +26,16 @@ identify changes or create them, work through the list; some items might already
 - If a catalog item's kind is a "badge" type, render as icon + tooltip; otherwise render
   as a plain text label in a separate column — needs a product decision on which kinds
   get icon+tooltip treatment.
-- Visually separate the titlebar area and position the app title/controls within it.
 - (On hold) Rich-text tooltip for the read button's "download this item first" hint
   (lighter color, smaller font) — do this one interactively with visual feedback.
+- Presentation, Sort, and Find in Library menu items or submenu items are all disabled
+  when they should not be.
+- Icons:  
+  1. Create an assets/icons/ directory in your project root
+  2. Download Lucide icons: `npm install lucide-static`
+  3. Copy needed SVGs: `cp node_modules/lucide-static/icons/*.svg assets/icons/`
+  4. Use the IconName enum to reference them type-safely
+
 - Make all text fields' content selectable and copyable: gpui-component TextView
 - Add sub-progress text to catalog load activity item message:
   - "Getting count of items"
@@ -37,8 +44,6 @@ identify changes or create them, work through the list; some items might already
   - Etc.
 - Put a question mark "?" for the collection count until it's known (e.g. after "Loading
   collections").
-- Presentation, Sort, and Find in Library menu items or submenu items are all disabled
-  when they should not be.
 - Add collection editing (add/remove items)
   - Context menu item on catalog: "add to <list of collections>", "remove from <list of collections>"
   - If catalog view is currently a collection, context menu for remove should be "remove from this collection"
@@ -49,14 +54,8 @@ identify changes or create them, work through the list; some items might already
   - Document types
 - Switch to `gpui-ce` (community edition)
   - Dock/Tiles layout?
-- Icons:  
-  1. Create an assets/icons/ directory in your project root
-  2. Download Lucide icons: `npm install lucide-static`
-  3. Copy needed SVGs: `cp node_modules/lucide-static/icons/*.svg assets/icons/`
-  4. Use the IconName enum to reference them type-safely
 - Use gpui-component HoverCard for rich tooltips
 - Use "loading" capability on list and other content views
 - Use "sections" on list views for publisher grouping
 - Use gpui-components Progress for activity button content (sum of all active loaders)
-- Use gpui-components Sheet for detail view
-- Move activity panel to gpui-components StatusBar that will open activity details and activity history
+- Detail view should be thumbnail on the left, information on the right
