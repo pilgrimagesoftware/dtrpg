@@ -45,6 +45,7 @@ identify changes or create them, work through the list; some items might already
   - They are not separate activities; they are new message when the library load makes its way through the various stages
 - Fix the library catalog refresh logic
 - Load cached thumbnails immediately before attempting to show the generated cover
+- Activity panel button tooltip should only show "completed" if > 0
 
 - "Refresh thumbnails" menu item does nothing — traced the full path
   (`RefreshThumbnails` action → `LibraryController::refresh_all_thumbnails` →
