@@ -2,7 +2,7 @@
 
 `ActivityItem` already carries `progress: Option<f32>` in `[0.0, 1.0]`, with `None` meaning indeterminate.
 No aggregation across items exists today — the activity button only surfaces `in_progress_count` via
-`ActivitySnapshot`. `gpui-component` provides a `Progress` widget usable for both determinate and
+`ActivitySnapshot`. `gpui-component` provides a `ProgressCircle` widget usable for both determinate and
 indeterminate display.
 
 ## Goals / Non-Goals
@@ -28,11 +28,13 @@ Rationale: a straightforward, easy-to-reason-about aggregate. Mixed known/unknow
 averaging only the known values gives a reasonable approximation without overcomplicating the aggregate
 with weighting logic.
 
-**Use `gpui-component`'s `Progress` widget in indeterminate mode when no in-progress item reports a known
-progress value.**
+**Use `gpui-component`'s `ProgressCircle` widget in indeterminate mode when no in-progress item reports a
+known progress value.**
 
-Rationale: `Progress` already supports both modes; falling back to indeterminate avoids showing a
-misleading fixed fraction (e.g. always 0%) when no item tracks real progress.
+Rationale: `ProgressCircle` already supports both modes; falling back to indeterminate avoids showing a
+misleading fixed fraction (e.g. always 0%) when no item tracks real progress. A circular indicator was
+chosen over the linear `Progress` bar to fit compactly alongside the button's existing glyph and count
+label in the status bar row.
 
 ## Risks / Trade-offs
 

@@ -34,6 +34,6 @@
 
 - [x] 5.1 Run `cargo check --workspace` and confirm zero errors
 - [x] 5.2 Run `cargo clippy --all-targets --all-features -- -D warnings` and fix any warnings
-- [ ] 5.3 Launch the app, trigger a library sync or download, and verify the activity panel shows a progress bar and elapsed time for the in-progress item
-- [ ] 5.4 Verify that completed items display their total duration and no progress bar
-- [ ] 5.5 Add a test call with a cancel fn and verify the cancel button appears and clicking it transitions the item to error state
+- [x] 5.3 Launch the app, trigger a library sync or download, and verify the activity panel shows a progress bar and elapsed time for the in-progress item
+- [x] 5.4 Verify that completed items display their total duration and no progress bar
+- [x] 5.5 Add a test call with a cancel fn and verify the cancel button appears and clicking it transitions the item to error state

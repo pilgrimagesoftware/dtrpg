@@ -59,12 +59,11 @@ identify changes or create them, work through the list; some items might already
 - Use "sections" on list views for publisher grouping
 - Use gpui-components Progress for activity button content (sum of all active loaders)
 - Detail view should be thumbnail on the left, information on the right
-- Application title is underneath stoplights
-- Redundant application title at top of left sidebar
-- Activity panel should be near activity panel button
-- Catalog contents do not incrementally update during loading
-- Missing "X items" text in status bar items
-- Activity button in status bar is supposed to be a circular progress indicator
-- Catalog cache files not written until loading is complete
-- Detail popover jumps around with mouse movement
-- "Refresh thumbnails" menu item does nothing
+
+- "Refresh thumbnails" menu item does nothing — traced the full path
+  (`RefreshThumbnails` action → `LibraryController::refresh_all_thumbnails` →
+  `drain_thumbnail_queue` with `force_network: true` → disk write via
+  `save_cached_cover` → `CoverCache::insert` → `LibraryChanged` emit). The handler is
+  wired and the force-network bypass is correct; could not reproduce "does nothing"
+  from code inspection alone. Needs a live repro (screenshot or steps) if it's still
+  broken — otherwise treat as already fixed by earlier work.

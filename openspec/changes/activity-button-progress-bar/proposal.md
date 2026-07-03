@@ -7,7 +7,7 @@ needing to hover.
 
 ## What Changes
 
-- The activity button renders a `gpui-component` `Progress` bar reflecting the aggregate progress of all
+- The activity button renders a `gpui-component` `ProgressCircle` reflecting the aggregate progress of all
   currently active activity items (e.g. sum of known/estimated progress across in-progress items, or a
   simple fraction of completed-vs-total if per-item progress isn't tracked).
 - The button falls back to its current icon-only appearance when no activities are in progress.
@@ -18,7 +18,7 @@ needing to hover.
 
 ### New Capabilities
 
-- `activity-button-progress-bar`: The activity button renders a `Progress` bar reflecting the aggregate
+- `activity-button-progress-bar`: The activity button renders a `ProgressCircle` reflecting the aggregate
   state of active loaders when any are in progress.
 
 ### Modified Capabilities
