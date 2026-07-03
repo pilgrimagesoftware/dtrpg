@@ -57,8 +57,6 @@ identify changes or create them, work through the list; some items might already
 - Use gpui-component HoverCard for rich tooltips
 - Use "loading" capability on list and other content views
 - Use "sections" on list views for publisher grouping
-- Use gpui-components Progress for activity button content (sum of all active loaders)
-- Detail view should be thumbnail on the left, information on the right
 
 - "Refresh thumbnails" menu item does nothing — traced the full path
   (`RefreshThumbnails` action → `LibraryController::refresh_all_thumbnails` →
