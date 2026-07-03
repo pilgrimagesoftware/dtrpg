@@ -41,6 +41,11 @@ identify changes or create them, work through the list; some items might already
 - Use "loading" capability on list and other content views
 - Use "sections" on list views for publisher grouping
 - Make the rich tooltip title bold 
+- Add PDF library to display information about PDFs in file list
+  - Page count
+  - Title page thumbnail
+  - Other?
+- For multi-file catalog entries, display invidual file size and type
 
 - "Refresh thumbnails" menu item does nothing — traced the full path
   (`RefreshThumbnails` action → `LibraryController::refresh_all_thumbnails` →
