@@ -46,6 +46,15 @@ identify changes or create them, work through the list; some items might already
 - Fix the library catalog refresh logic
 - Load cached thumbnails immediately before attempting to show the generated cover
 - Activity panel button tooltip should only show "completed" if > 0
+- Truncate long titles in detail view tab title
+- Reorganize detail view contents
+  - Move file size to the right of format
+  - Move category to the bottom; add category icon to the left of the category name
+  - Move release date to the right of system
+  - Add list of files for multi-file catalog entries
+  - Fix tooltip for "read" to show actual tooltip and only add "download this item first" if the item is not already downloaded
+  - Hide the "Read" button if the entry has multiple files and show a "Read" button next to each file in the list instead
+  - Cover image bleeds to the left into the sidebar
 
 - "Refresh thumbnails" menu item does nothing — traced the full path
   (`RefreshThumbnails` action → `LibraryController::refresh_all_thumbnails` →
