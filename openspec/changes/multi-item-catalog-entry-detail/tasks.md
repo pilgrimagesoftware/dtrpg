@@ -1,10 +1,10 @@
 ## 1. API and SDK Audit
 
-- [ ] 1.1 Audit `dtrpg-api` OpenAPI spec to confirm catalog entry responses include a structured item array with per-item fields (name, type, format, file size, download URL or state)
-- [ ] 1.2 If item-level fields are missing from the API spec, file a companion change in `dtrpg-api` to add them
-- [ ] 1.3 Audit `dtrpg-sdk/rust` model types to confirm a typed per-item struct exists and maps to the API item array
-- [ ] 1.4 If per-item model structs are missing from the Rust SDK, file a companion change in `dtrpg-sdk/rust` to add them
-- [ ] 1.5 Verify the same coverage in `dtrpg-sdk/swift` and file a companion change if needed
+- [x] 1.1 Audit `dtrpg-api` OpenAPI spec to confirm catalog entry responses include a structured item array with per-item fields (name, type, format, file size, download URL or state) — `OrderProductAttributes.files: OrderProductFile[]` (openapi.yaml) provides `title`, `filename`, `size`, `sizeMB`, `checksums` per item; format is derivable from `filename` extension. No explicit item-type classifier or per-file download URL/state field exists (per-file download is resolved via the order-product-level `/prepare` endpoint, not per-file).
+- [x] 1.2 If item-level fields are missing from the API spec, file a companion change in `dtrpg-api` to add them — not required: available fields (name, filename/format, size) cover the minimum requirement in `catalog-entry-detail-view` spec (item name, type, format, file size, download state); the design's Non-Goals explicitly exclude defining new API contract, and the missing item-type classifier is called out as an Open Question rather than a blocking gap.
+- [x] 1.3 Audit `dtrpg-sdk/rust` model types to confirm a typed per-item struct exists and maps to the API item array — `OrderProductFile` (`dtrpg-sdk/rust/src/library.rs`) is a typed struct already mapping 1:1 to the API's `files` array on `OrderProductAttributes`.
+- [x] 1.4 If per-item model structs are missing from the Rust SDK, file a companion change in `dtrpg-sdk/rust` to add them — not required: `OrderProductFile` already exists and covers the needed fields.
+- [x] 1.5 Verify the same coverage in `dtrpg-sdk/swift` and file a companion change if needed — not required: the Swift SDK generates all model types at build time from `openapi.yaml` via Swift OpenAPI Generator (no hand-written model layer), so `OrderProductFile` will be generated automatically once the API schema is used; no companion change needed.
 
 ## 2. Umbrella OpenSpec Archiving
 
@@ -14,9 +14,9 @@
 
 ## 3. App-Level Child Changes
 
-- [ ] 3.1 Create a child OpenSpec change in `dtrpg-app` for the shared desktop detail view shell and item-picker integration contract
-- [ ] 3.2 Create a child OpenSpec change in `dtrpg-app/swift` for the native macOS SwiftUI catalog entry detail view implementation
-- [ ] 3.3 Create a child OpenSpec change in `dtrpg-app/rust` for the Rust/GPUI catalog entry detail view implementation
+- [x] 3.1 Create a child OpenSpec change in `dtrpg-app` for the shared desktop detail view shell and item-picker integration contract — `define-shared-catalog-entry-detail-view` adds `shared-catalog-entry-detail-view` and a `shared-main-window-structure` delta reconciling the two: the popover/expanded-tab split from `shared-main-window-structure` stays as the entry point, and `shared-catalog-entry-detail-view` specifies what fills the expanded tab (persistent item list, two-tier metadata); the popover remains a lightweight entry-level summary with no item list.
+- [x] 3.2 Create a child OpenSpec change in `dtrpg-app/swift` for the native macOS SwiftUI catalog entry detail view implementation — `define-macos-catalog-entry-detail-view`, scoped to fill in `add-macos-main-window-structure` task 4.4's still-open file list requirement.
+- [x] 3.3 Create a child OpenSpec change in `dtrpg-app/rust` for the Rust/GPUI catalog entry detail view implementation — `define-rust-catalog-entry-detail-view`, addressing the documented gap in `render_detail_tab_content` (no per-item file list model yet) and the existing but unhandled `OpenError::MultipleFilesRequireSelection` case.
 
 ## 4. Swift App Implementation
 
