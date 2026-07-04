@@ -46,7 +46,8 @@ identify changes or create them, work through the list; some items might already
   - Title page thumbnail
   - Other?
 - For multi-file catalog entries, display invidual file size and type
-
+- Add disclosure area in detail view with all the other information
+- Add Sentry for crash reporting?
 - "Refresh thumbnails" menu item does nothing — traced the full path
   (`RefreshThumbnails` action → `LibraryController::refresh_all_thumbnails` →
   `drain_thumbnail_queue` with `force_network: true` → disk write via
