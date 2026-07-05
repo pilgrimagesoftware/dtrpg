@@ -21,9 +21,9 @@
 
 ## 4. Verification
 
-- [ ] 4.1 Verify the title bar separator, title, and account menu render and open correctly
-- [ ] 4.2 Verify sidebar collapse/expand and per-section search, add, and collapse affordances behave as in the current sidebar
-- [ ] 4.3 Verify the catalog tab is never closable and always reachable regardless of how many detail tabs are open
-- [ ] 4.4 Verify single-click opens a popover without creating a tab, and double-click opens a closable expanded detail tab
-- [ ] 4.5 Verify status bar hover states show summary counts and click states open the corresponding detail surfaces
-- [ ] 4.6 Verify status bar and tab summary counts stay in sync with sidebar navigation and catalog filtering state
+- [x] 4.1 Verify the title bar separator, title, and account menu render and open correctly
+- [x] 4.2 Verify sidebar collapse/expand and per-section search, add, and collapse affordances behave as in the current sidebar
+- [x] 4.3 Verify the catalog tab is never closable and always reachable regardless of how many detail tabs are open
+- [x] 4.4 Verify single-click opens a popover without creating a tab, and double-click opens a closable expanded detail tab
+- [x] 4.5 Verify status bar hover states show summary counts and click states open the corresponding detail surfaces
+- [x] 4.6 Verify status bar and tab summary counts stay in sync with sidebar navigation and catalog filtering state

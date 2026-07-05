@@ -52,10 +52,10 @@
 
 ## 8. Verification
 
-- [ ] 8.1 Run `cargo test --workspace` and confirm all tests pass
+- [x] 8.1 Run `cargo test --workspace` and confirm all tests pass
 - [ ] 8.2 Run `cargo clippy --all-targets --all-features -- -D warnings` and fix any warnings
 - [ ] 8.3 Launch the app; confirm the "+" button appears in the Collections header
 - [ ] 8.4 Click "+"; confirm the dialog opens with focus on the name field
 - [ ] 8.5 Type a name and click Create; confirm the activity panel shows "Creating collection..." and the new collection appears in the sidebar on success
-- [ ] 8.6 Trigger a failure (invalid credentials); confirm an error notification appears and the activity item is marked as an error
+- [x] 8.6 Trigger a failure (invalid credentials); confirm an error notification appears and the activity item is marked as an error
 - [ ] 8.7 Click Cancel; confirm the dialog closes without any API call

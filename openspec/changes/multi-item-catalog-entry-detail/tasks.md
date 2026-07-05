@@ -42,10 +42,10 @@
 
 ## 6. Verification
 
-- [ ] 6.1 Test single-item entry: detail view shows entry metadata and item metadata inline, no item list visible
-- [ ] 6.2 Test multi-item entry (e.g., Moria): detail view shows entry metadata and item list; selecting each item shows its individual metadata
-- [ ] 6.3 Test item count badge is visible on multi-item entries in list, tree, and grid views, and absent on single-item entries
-- [ ] 6.4 Test switching selection between entries while detail view is open updates the view in place
-- [ ] 6.5 Test returning to a multi-item entry after navigating away confirms no item is pre-selected
-- [ ] 6.6 Test item list scrollability with a catalog entry that has a large number of items
+- [x] 6.1 Test single-item entry: detail view shows entry metadata and item metadata inline, no item list visible
+- [x] 6.2 Test multi-item entry (e.g., Moria): detail view shows entry metadata and item list; selecting each item shows its individual metadata
+- [x] 6.3 Test item count badge is visible on multi-item entries in list, tree, and grid views, and absent on single-item entries
+- [x] 6.4 Test switching selection between entries while detail view is open updates the view in place
+- [x] 6.5 Test returning to a multi-item entry after navigating away confirms no item is pre-selected
+- [x] 6.6 Test item list scrollability with a catalog entry that has a large number of items
 - [ ] 6.7 Update parent submodule references in `dtrpg` once all child changes are verified
