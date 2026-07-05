@@ -23,17 +23,20 @@
 
 ## 4. Rust App — Multi-File Item Handling
 
-- [x] 4.1 Confirm with `dtrpg-api` / `dtrpg-sdk` whether a "primary file" field exists in the catalog item model
-- [ ] 4.2 If a primary file is designated, open it directly; if not, present a file-selection sheet/popover listing available downloaded files
-- [ ] 4.3 Implement the file-selection popover in gpui, listing each file's name and format
-- [ ] 4.4 Wire popover selection to `ItemOpener::open` with the chosen file's path
+- [x] 4.1 Confirmed with `dtrpg-api` / `dtrpg-sdk`: no "primary file" field exists in the catalog item model
+- [x] 4.2 No primary file exists, so no shortcut is implemented; `ItemOpener::open_item` returns `MultipleFilesRequireSelection` for entries with more than one file (see `item_opener.rs`)
+- [x] 4.3 Instead of a separate popover, multi-file opens route to the entry's expanded detail tab, which already renders a persistent per-item list via the `multi-item-catalog-entry-detail` capability (see `open_item_or_focus_detail_tab` in `catalog_view.rs`) — see design.md Decision 4 for why a duplicate picker UI was not built
+- [x] 4.4 N/A — no popover selection to wire; selecting a file/item is handled by the detail tab's existing item-list selection (`clear_item_selection` / per-item click handling)
 
 ## 5. Swift App — KeychainCredentialStore and Open Integration
 
-- [ ] 5.1 Implement `func openItem(at url: URL) throws` in the Swift app using `NSWorkspace.shared.open(_ url: URL)`
-- [ ] 5.2 Define an `ItemOpenError` enum for `fileNotFound`, `noDefaultApp`, `osFailed` with `LocalizedError` conformance
-- [ ] 5.3 Map the `NSWorkspace.open` `Bool` return to `ItemOpenError.osFailed` when it returns `false`
-- [ ] 5.4 Write XCTest tests for the open function covering success, file-not-found, and no-default-app paths
+- [x] 5.1 Implement `func openItem(at url: URL) throws` in `dtrpg-app/swift/Sources/DTRPGClient/ItemOpener.swift` using `NSWorkspace.shared.open(_ url: URL)`
+- [x] 5.2 Define an `ItemOpenError` enum for `fileNotFound`, `noDefaultApp`, `osFailed` with `LocalizedError` conformance
+- [x] 5.3 Map the `NSWorkspace.open` `Bool` return to `ItemOpenError.osFailed` when it returns `false`
+- [x] 5.4 Write XCTest tests for the open function: file-not-found (deterministic) and existing-file (doesn't
+  falsely report file-not-found). `noDefaultApp` is not exercised by an automated test — `NSWorkspace` is a
+  concrete system class with no seam to fake "no default app registered" deterministically in CI; same
+  limitation applies to the Rust app's test suite, which likewise doesn't exercise its `NoDefaultApp` path
 
 ## 6. Swift App — Catalog View Integration
 

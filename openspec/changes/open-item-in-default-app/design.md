@@ -43,11 +43,13 @@ No third-party library is needed on the Swift side. `NSWorkspace.shared.open(_ u
 
 **Trade-off**: If a file is deleted externally between app launches, the UI will show "Open" until the user tries — then they see an error with a re-download offer. This is acceptable UX for the common case.
 
-### Decision 4: Multi-file item picker is a secondary concern — defer to a sheet/popover
+### Decision 4: Multi-file items route to the entry's detail tab instead of a separate picker
 
-When an item has multiple files and no designated primary, the "Open" button triggers a sheet (SwiftUI) or modal panel (gpui) listing available files. This is simpler than inline expansion and keeps the catalog row/card compact.
+**Update (Rust app, implemented):** `dtrpg-api`/`dtrpg-sdk` confirmed there is no "primary file" field on the catalog item model — every multi-file entry is presented as an undifferentiated file list. Rather than build a dedicated sheet/popover to pick a file (the originally proposed approach), `ItemOpener::open_item` returns `OpenError::MultipleFilesRequireSelection` for entries with more than one file, and the caller (`open_item_or_focus_detail_tab` in `catalog_view.rs`) opens/focuses that entry's expanded detail tab instead — which already renders a persistent, selectable per-item list (the `multi-item-catalog-entry-detail` capability). Triggering "Open" from within that same detail tab is a no-op on `MultipleFilesRequireSelection`, since the list is already visible.
 
-The primary file designation (if the API provides one) is used to short-circuit the picker. The API contract for primary file should be confirmed with `dtrpg-api` — see Open Questions.
+Rationale: `multi-item-catalog-entry-detail` was built to solve exactly this browsing problem (which file/item is this?) with per-item metadata and selection state. Building a second, separate popover for the same decision would duplicate UI and diverge from it over time. Routing to the existing surface is simpler and keeps one canonical place to browse a multi-file entry's contents.
+
+The Swift app should follow the same pattern once its own multi-item detail view exists, rather than implement the sheet-based picker described in the original task list (see tasks 8.1-8.3).
 
 ### Decision 5: Error handling surfaces to the user, not just to logs
 
@@ -78,6 +80,6 @@ No rollback strategy needed — the feature is additive and can be feature-flagg
 
 ## Open Questions
 
-- **Primary file designation**: Does the DriveThruRPG API identify a "primary" file for multi-file products (e.g., the main PDF vs. a printer-friendly version)? If yes, which field? This determines whether the multi-file picker is the common case or the exception.
+- **Primary file designation**: Resolved — no such field exists. See Decision 4.
 - **Download state model**: What is the current shape of the download state enum/struct in each app? The spec assumes a `localPath` is stored when a file is downloaded — confirm this is the case or adjust accordingly.
 - **gpui affordance pattern**: Does gpui have a standard pattern for per-row action buttons in a list, or should the "Open" trigger be a right-click context menu? Defer to whatever pattern the catalog view already uses for other actions.

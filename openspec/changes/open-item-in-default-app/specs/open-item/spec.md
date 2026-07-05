@@ -50,19 +50,19 @@ The catalog item detail view SHALL include a prominent "Open" action button that
 - **THEN** the OS default application launches for the item's file and the detail view remains visible
 
 ### Requirement: Open action respects multi-file items
-For catalog items that have multiple downloadable files (e.g., PDF + print-friendly version + extras), the application SHALL open the primary file by default and MAY offer a picker for additional files.
+For catalog items that have multiple downloadable files (e.g., PDF + print-friendly version + extras), the application SHALL open the single file directly when only one exists, and SHALL route the user to the item's persistent file list rather than guessing which file to open when more than one exists. There is no "primary file" field in the catalog item model (confirmed against `dtrpg-api`/`dtrpg-sdk`), so no primary-file shortcut is implemented.
 
 #### Scenario: Single-file item opens directly
 - **WHEN** the user triggers "Open" on an item with exactly one downloadable file
 - **THEN** that file is opened immediately without any picker dialog
 
-#### Scenario: Multi-file item offers file selection
-- **WHEN** the user triggers "Open" on an item with multiple downloadable files
-- **THEN** the application presents a list of available files for the user to choose which one to open
+#### Scenario: Multi-file item routes to the item list
+- **WHEN** the user triggers "Open" on an item with multiple downloadable files, from the catalog view
+- **THEN** the application opens (or focuses) that entry's expanded detail tab, which shows the persistent, selectable item list from the `multi-item-catalog-entry-detail` capability, instead of presenting a separate picker popover
 
-#### Scenario: Multi-file item primary file shortcut
-- **WHEN** the user triggers "Open" on an item with multiple files and one is designated as the primary file
-- **THEN** the primary file is opened immediately and additional files are accessible via a secondary action or expanded menu
+#### Scenario: Multi-file open from within the detail view
+- **WHEN** the user triggers "Open" on a multi-file item's primary read/open action from within its own detail tab
+- **THEN** no further navigation occurs, since the item list is already visible in that same tab
 
 ### Requirement: Open failure is reported to the user
 If the OS fails to open the file (e.g., file is corrupt, permission denied, application crash), the application SHALL detect the failure and display an actionable error message.
