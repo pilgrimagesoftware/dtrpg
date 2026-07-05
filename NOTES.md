@@ -8,6 +8,10 @@ Prompt for the robot
 identify changes or create them, work through the list; some items might already be complete; some changes have been completed in the interim, archive if so
 ```
 
+- Update login
+  - Don't use API key; see login flow to acquire a key in [LOGIN.md](dtrpg-api/LOGIN.md)
+  - Store email + API key in Keychain
+
 - Catalog items may bleed off the right edge instead of reflowing — needs visual
   re-verification against current layout before treating as a bug.
 - Localizations still missing: autofill/dictation/emoji menu items (OS-provided, may not
