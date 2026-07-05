@@ -24,7 +24,7 @@
 
 - [x] 4.1 Run `cargo clippy --all-targets --all-features -- -D warnings` and fix any new warnings
 - [x] 4.2 Run `cargo test -p dtrpg-ui` to ensure no tests break
-- [ ] 4.3 Launch the app and verify collection badges show numeric-only counts
-- [ ] 4.4 Launch the app and verify publisher badges show numeric-only counts
-- [ ] 4.5 Verify the catalog footer still shows full context text (e.g., "12 titles", "Viewing 5 items from Collection Name")
-- [ ] 4.6 Check visual alignment and spacing of badges hasn't changed
+- [x] 4.3 Launch the app and verify collection badges show numeric-only counts
+- [x] 4.4 Launch the app and verify publisher badges show numeric-only counts
+- [x] 4.5 Verify the catalog footer still shows full context text (e.g., "12 titles", "Viewing 5 items from Collection Name")
+- [x] 4.6 Check visual alignment and spacing of badges hasn't changed

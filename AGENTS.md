@@ -17,6 +17,15 @@ See @docs/openspec.md for OpenSpec guidance.
 
 See @docs/git-submodules.md for working with submodules.
 
+## Committing Code 
+
+When committing code, always use the following commit message format, corresponding to the 
+[conventional commits](https://www.conventionalcommits.org/) standard:
+
+```
+<type>(<scope>): <description>
+```
+
 ## Repository Branches and Workflow
 
 See @docs/git-repos.md for repository structure, branches, workflow, and commit guidelines.
@@ -105,4 +114,3 @@ Replace `<your-model-id>` with your active model:
 - GPT-4o / GPT-5 / o1 / Llama → use the model id as printed by your runner
 
 The `model=` parameter rides on the existing `plan_turn` call — it does **not** add a separate tool invocation. If `plan_turn` is not appropriate for a non-code task, call `announce_model(model="...")` once instead.
-
