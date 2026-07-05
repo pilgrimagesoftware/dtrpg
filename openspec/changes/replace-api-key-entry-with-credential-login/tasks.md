@@ -1,11 +1,11 @@
 ## 1. Coordinate child changes
 
-- [ ] 1.1 Create a child OpenSpec change in `dtrpg-sdk/rust` implementing the
+- [x] 1.1 Create a child OpenSpec change in `dtrpg-sdk/rust` implementing the
       `credential-login-exchange` capability (new module wrapping
       `validate_login_credentials.php` and `create_account_app.php`)
-- [ ] 1.2 Create a child OpenSpec change in `dtrpg-app/rust` implementing the modified
+- [x] 1.2 Create a child OpenSpec change in `dtrpg-app/rust` implementing the modified
       `auth-login-view` and `credential-store` capabilities for the Rust desktop app
-- [ ] 1.3 Create a child OpenSpec change in `dtrpg-app/swift` implementing the same
+- [x] 1.3 Create a child OpenSpec change in `dtrpg-app/swift` implementing the same
       `auth-login-view` and `credential-store` capabilities for the Swift desktop app
 
 ## 2. SDK: credential exchange (dtrpg-sdk/rust)
