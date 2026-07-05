@@ -58,7 +58,13 @@
       "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(d['template']\\)\")",
       "WebFetch(domain:crates.io)",
       "Bash(git log *)",
-      "Bash(git worktree *)"
+      "Bash(git worktree *)",
+      "mcp__jcodemunch__resolve_repo",
+      "mcp__jcodemunch__plan_turn",
+      "mcp__jcodemunch__get_file_outline",
+      "mcp__jcodemunch__get_symbol_source",
+      "mcp__jcodemunch__get_file_tree",
+      "mcp__jcodemunch__search_symbols"
     ]
   }
 }
