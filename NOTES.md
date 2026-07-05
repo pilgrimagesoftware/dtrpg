@@ -12,6 +12,24 @@ identify changes or create them, work through the list; some items might already
   - Don't use API key; see login flow to acquire a key in [LOGIN.md](dtrpg-api/LOGIN.md)
   - Store email + API key in Keychain
 
+- Startup workflow
+  - Check destination folder for existing catalog data and load if available
+  - Pull auth info from keychain and use to authenticate with API
+  - If auth info is not available, redirect to login flow, stored email and API key in keychain 
+  - Only when logged in:
+    - Catalog:
+        - Get last catalog check timestamp from local storage 
+        - If no timestamp, initiate a catalog load
+        - If timestamp, check if it's time to refresh the catalog (see refresh logic)
+        - Store check timestamp in local storage when check completes, not when aborted
+    - Gravatar:
+        - Load locally cached image
+        - Get last avatar check timestamp from local storage 
+        - Same logic as above for gravatar check
+  - If not logged in:
+    - Show placeholder image: app icon?
+    - Show collections, but disable drag-n-drop and add/remove
+
 - Catalog items may bleed off the right edge instead of reflowing — needs visual
   re-verification against current layout before treating as a bug.
 - Localizations still missing: autofill/dictation/emoji menu items (OS-provided, may not
