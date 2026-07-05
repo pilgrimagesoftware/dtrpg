@@ -20,4 +20,4 @@
 
 - [x] 3.1 Run `cargo check --workspace`
 - [x] 3.2 Run `cargo clippy --all-targets --all-features -- -D warnings`
-- [ ] 3.3 Manually trigger a catalog load and confirm the activity label updates through each phase
+- [x] 3.3 Manually trigger a catalog load and confirm the activity label updates through each phase
