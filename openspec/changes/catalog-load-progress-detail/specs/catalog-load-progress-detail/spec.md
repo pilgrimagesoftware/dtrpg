@@ -5,20 +5,23 @@
 The catalog load activity item SHALL update its label as the load sequence advances through its known
 phases, using a single activity item updated in place rather than one item per phase.
 
-#### Scenario: Item count phase
-
-- **WHEN** the catalog load begins fetching the total item count
-- **THEN** the activity item label SHALL read "Getting count of items"
-
 #### Scenario: Collections phase
 
 - **WHEN** the catalog load begins fetching collections
-- **THEN** the activity item label SHALL read "Loading collections"
+- **THEN** the activity item label SHALL read "Loading library: getting collections…"
 
-#### Scenario: Library phase
+#### Scenario: Count-check phase (auto-load fast path only)
 
-- **WHEN** the catalog load begins fetching library items
-- **THEN** the activity item label SHALL read "Loading library"
+- **WHEN** the catalog load's cache is non-empty and fresh, and it begins the remote count check to
+  decide whether a full re-fetch is needed
+- **THEN** the activity item label SHALL read "Loading library: getting count of items…"
+- **AND** this phase SHALL be skipped (not shown) when the cache is empty, stale, or `force_reload` is
+  set — the load proceeds directly to the library fetch phase in that case
+
+#### Scenario: Library fetch phase
+
+- **WHEN** the catalog load begins the paginated live item fetch
+- **THEN** the activity item label SHALL read "Loading library…"
 
 #### Scenario: Single activity item throughout
 

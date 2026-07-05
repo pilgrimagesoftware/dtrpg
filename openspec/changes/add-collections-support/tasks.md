@@ -48,7 +48,7 @@
 - [x] 6.1 Run `cargo test --workspace` and confirm all tests pass
 - [x] 6.2 Run `cargo clippy --all-targets --all-features -- -D warnings` and resolve any new warnings introduced by this change
 - [x] 6.3 Launch the app with valid credentials; confirm the Collections section appears in the sidebar if the user has product lists, and is absent if they have none
-- [ ] 6.4 Click a collection entry and confirm the catalog filters to only items in that collection
-- [ ] 6.5 Confirm the item count next to each collection name reflects items present in the loaded library, not the server count
-- [ ] 6.6 Switch from a collection filter back to "All" and confirm all library items are shown again
-- [ ] 6.7 Launch the app with credentials that cause the collections fetch to fail (e.g., revoked token for that endpoint); confirm the library still opens and the Collections section is absent
+- [x] 6.4 Click a collection entry and confirm the catalog filters to only items in that collection
+- [x] 6.5 Confirm the item count next to each collection name reflects items present in the loaded library, not the server count
+- [x] 6.6 Switch from a collection filter back to "All" and confirm all library items are shown again
+- [x] 6.7 Launch the app with credentials that cause the collections fetch to fail (e.g., revoked token for that endpoint); confirm the library still opens and the Collections section is absent
