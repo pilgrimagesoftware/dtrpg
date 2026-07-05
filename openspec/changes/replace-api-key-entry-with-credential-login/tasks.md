@@ -10,33 +10,33 @@
 
 ## 2. SDK: credential exchange (dtrpg-sdk/rust)
 
-- [x] 2.1 Add a typed response for `validate_login_credentials.php`'s positional JSON
+- [ ] 2.1 Add a typed response for `validate_login_credentials.php`'s positional JSON
       array, with a unit test fixture from the exact example in `LOGIN.md`
-- [x] 2.2 Add a typed response for `create_account_app.php`'s `{status, message.key}`
+- [ ] 2.2 Add a typed response for `create_account_app.php`'s `{status, message.key}`
       body
-- [x] 2.3 Implement `login_with_credentials(email, password) -> Result<String, ClientError>`
+- [ ] 2.3 Implement `login_with_credentials(email, password) -> Result<String, ClientError>`
       calling both endpoints in sequence against `www.drivethrurpg.com`
-- [x] 2.4 Add unit tests covering: valid credentials, invalid credentials (stop before
+- [ ] 2.4 Add unit tests covering: valid credentials, invalid credentials (stop before
       second call), and key-request failure after valid credentials
-- [x] 2.5 Document the new module's scope relative to `auth_client.rs` in doc comments
+- [ ] 2.5 Document the new module's scope relative to `auth_client.rs` in doc comments
 
 ## 3. App: login view and controller (dtrpg-app/rust)
 
-- [x] 3.1 Replace the API key field in the login view with email and password fields
-- [x] 3.2 Update submit-button enablement logic for the two-field form
-- [x] 3.3 Update `LoginController` to call the SDK credential exchange, then the existing
+- [ ] 3.1 Replace the API key field in the login view with email and password fields
+- [ ] 3.2 Update submit-button enablement logic for the two-field form
+- [ ] 3.3 Update `LoginController` to call the SDK credential exchange, then the existing
       `authenticate` call, surfacing distinct errors for each failure mode
-- [x] 3.4 Update loading/disabled state handling to span both calls
-- [x] 3.5 Pre-fill the email field when a stored entry has an email but an invalid or
+- [ ] 3.4 Update loading/disabled state handling to span both calls
+- [ ] 3.5 Pre-fill the email field when a stored entry has an email but an invalid or
       expired application key
 
 ## 4. App: credential storage (dtrpg-app/rust)
 
-- [x] 4.1 Extend the stored credential payload to include account email alongside the
+- [ ] 4.1 Extend the stored credential payload to include account email alongside the
       application key
-- [x] 4.2 Update `KeyringCredentialStore` read path to tolerate legacy entries with no
+- [ ] 4.2 Update `KeyringCredentialStore` read path to tolerate legacy entries with no
       email field
-- [x] 4.3 Update tests in `credentials/store.rs` for the new payload shape and legacy
+- [ ] 4.3 Update tests in `credentials/store.rs` for the new payload shape and legacy
       read compatibility
 
 ## 5. Verification
