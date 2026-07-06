@@ -42,3 +42,14 @@ drag API allows reusing an existing element as the preview.
   shape (`on_drag` closure signature, drop payload downcasting) during implementation.
 - Dropping onto a collection the item is already a member of should be a no-op (not an error) — needs an
   explicit check before calling `add_member`.
+
+## Implementation Note (post-implementation)
+
+During implementation, `gpui-component`'s `SidebarMenuItem` (used for every sidebar row) turned out to have
+no `on_drop`/`drag_over` hooks — it's a closed builder that renders its own row internally with no way to
+extend it from outside. The sidebar drop target could not be added to `SidebarMenuItem` as originally
+assumed by this design. As a stopgap, the Collections section was hand-rolled as plain `gpui` `div`s
+duplicating `SidebarMenuItem`'s styling, just for this one section. See `gpui-component-sidebar-droppable`
+for the follow-up change that patches `gpui-component` itself so this duplication can be removed. See also
+this change's `tasks.md` "Status" section for the full list of what shipped vs. what's still open (list-row
+drag source, context-menu entry point).
