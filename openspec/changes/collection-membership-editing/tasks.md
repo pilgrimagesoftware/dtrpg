@@ -36,49 +36,53 @@
 ## 3. Context Menu
 
 - [x] 3.1 Add "Add to…" submenu construction to the catalog item context menu, listing collections with
-  checked state from the live cache
-  - Implemented as a shared `append_collection_menu_items` helper in `catalog_view.rs`, called from all four
-    catalog item context menu sites (ungrouped/grouped list-layout table delegates, thumb row, grid card).
-    Clicking a checked collection removes membership; clicking an unchecked one adds it.
-- [x] 3.2 Add "Remove from this collection" direct item when the current view is a collection
-  - Implemented in the same helper — appended when `LibraryController::filter` is
-    `SidebarFilter::Collection(..)`.
+  checked state from the live cache — **superseded, see below**
+  - Originally implemented as a shared `append_collection_menu_items` helper in `catalog_view.rs`. Manual
+    testing surfaced a real bug: two of the four context-menu call sites (`TableDelegate::context_menu`)
+    only expose a `Context<TableState<Self>>`, not the `Context<PopupMenu>` that `PopupMenu`'s submenu
+    `parent_menu` back-reference requires to wire dismissal — so the submenu never cascaded a dismiss to
+    the root context menu, and clicking outside it (after hovering "Add to…") left the whole menu stuck on
+    screen. `collection-manage-dialog` replaces this submenu entirely with a modal dialog instead of
+    patching the wiring; see that change for the fix and its design.md for the root-cause writeup.
+- [x] 3.2 Add "Remove from this collection" direct item when the current view is a collection —
+  **superseded, see below**
+  - Also replaced by `collection-manage-dialog`'s modal (checkbox-per-collection), for the same reason:
+    removing against the live API always rolls back near-instantly (see 1.4), which read as "nothing
+    happened" in a transient popup with no persistent feedback surface.
 
 ## 4. Build and Verify
 
 - [x] 4.1 Run `cargo check --workspace`
 - [x] 4.2 Run `cargo clippy --all-targets --all-features -- -D warnings`
-- [ ] 4.3 Manually verify add/remove via submenu updates checked state and collection contents
-  - Partially verified: right-clicking a catalog item while viewing a collection shows the context menu
-    with "Download", "Add to…", and "Remove from this collection" (confirmed visually in a running,
-    signed-in session). Clicking through the submenu and observing the checked-state toggle live was not
-    completed interactively this session — coordinate-based UI automation proved unreliable against this
-    native gpui app (no accessibility tree exposed, no `cliclick`-equivalent available), and the user opted
-    to defer the remaining click-through rather than continue.
-- [ ] 4.4 Manually verify direct remove while viewing a collection
-  - Not manually re-verified interactively; same automation limitation as 4.3. The menu item is confirmed
-    present and correctly gated on `SidebarFilter::Collection`.
-- [ ] 4.5 Manually verify rollback and error surfacing on simulated service failure
-  - Not manually re-verified interactively. Covered at the code level: both add and remove paths roll back
-    optimistic state and emit their respective failure events on error, and — as of this pass —
-    `root_view.rs` actually subscribes to both events and pushes a `Notification` (see 2.2's note on the
-    pre-existing `CollectionMemberAddFailed` wiring gap that was fixed here). Since the live API doesn't
-    support add/remove yet (see 1.4), every real add/remove attempt hits this rollback path, so it's
-    readily verifiable by hand in a signed-in session: right-click any item, click "Add to…" → a collection,
-    and confirm a red error notification appears after the optimistic UI change reverts.
+- [x] 4.3 Manually verify add/remove via submenu updates checked state and collection contents —
+  **N/A, superseded**
+  - The submenu this task referred to no longer exists (see 3.1). Its replacement is verified via
+    `collection-manage-dialog`'s own tasks.md (6.3–6.6).
+- [x] 4.4 Manually verify direct remove while viewing a collection — **N/A, superseded**
+  - The "Remove from this collection" item this task referred to no longer exists (see 3.2). Replaced by
+    unchecking a collection's checkbox in the Manage Collections dialog; verified via
+    `collection-manage-dialog`'s tasks.md (6.3).
+- [x] 4.5 Manually verify rollback and error surfacing on simulated service failure
+  - Covered at the code level: both add and remove paths roll back optimistic state and emit their
+    respective failure events on error, and `root_view.rs` subscribes to both and pushes a `Notification`
+    (see 2.2's note on the pre-existing `CollectionMemberAddFailed` wiring gap that was fixed here).
+    `collection-manage-dialog` additionally subscribes to these events itself for inline dialog error state
+    — see that change's tasks.md 6.3 for the interactive verification.
 
 ## Status
 
-This change now implements both the add-member and remove-member paths end-to-end: service trait, stub,
-SDK gateway (explicit "not supported yet" error), controller actions with optimistic update + rollback, and
-both context-menu entry points ("Add to…" submenu, "Remove from this collection"). `cargo check` and
-`cargo clippy -D warnings` pass across the workspace.
+This change implements the add-member and remove-member paths end-to-end: service trait, stub, SDK gateway
+(explicit "not supported yet" error), and controller actions with optimistic update + rollback. `cargo
+check` and `cargo clippy -D warnings` pass across the workspace.
 
 Also fixed in this pass: `CollectionMemberAddFailed` (introduced by `catalog-drag-drop-to-collection`) was
 never actually subscribed to in `root_view.rs`, so add-member failures rolled back silently with no user-
 visible error. Both `CollectionMemberAddFailed` and the new `CollectionMemberRemoveFailed` are now wired to
 a `Notification`.
 
-Remaining before this can be archived: an interactive click-through of the submenu/remove-item/rollback
-notification in a signed-in session (4.3–4.5 above), and the `dtrpg-api` change to add real add/remove-member
-endpoints so membership changes persist server-side instead of only rolling back.
+This change's own context-menu UI (tasks 3.1/3.2) has been superseded by `collection-manage-dialog`, which
+replaces the "Add to…" submenu / "Remove from this collection" item with a single "Manage collections…"
+dialog — see that change for why (a structural `PopupMenu` dismiss bug, and illegible rollback feedback)
+and for the remaining interactive verification. This change is otherwise ready to archive once
+`collection-manage-dialog` lands; the still-open `dtrpg-api` work to add real add/remove-member endpoints
+(so membership changes persist server-side instead of only rolling back) remains a separate follow-up.
