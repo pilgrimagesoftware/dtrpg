@@ -37,12 +37,12 @@
 - [x] 3.1 On drop, check current membership; if already a member, no-op
   - `LibraryController::add_item_to_collection` returns early if `collection.member_ids` already contains
     the dropped item's id.
-- [ ] 3.2 On drop, call the same controller action used by the context menu's "Add to…" item
+- [x] 3.2 On drop, call the same controller action used by the context menu's "Add to…" item
   (`collection-membership-editing`)
-  - Partially true: the drop handler does call `LibraryController::add_item_to_collection`, which is the
-    shared underlying action — but `collection-membership-editing`'s context-menu "Add to…" entry point
-    was never built (see that change's tasks.md), so drag-and-drop is currently the *only* entry point into
-    this action, not a second one alongside the context menu as originally envisioned.
+  - `collection-membership-editing`'s context-menu "Add to…" submenu now exists (`append_collection_menu_items`
+    in `catalog_view.rs`) and calls the same `LibraryController::add_item_to_collection`/
+    `::remove_item_from_collection` actions the drop handler uses — drag-and-drop and the context menu are
+    now two entry points into the same shared action, as originally envisioned.
 
 ## 4. Build and Verify
 
@@ -58,7 +58,7 @@
 ## Status
 
 Core interaction (drag from grid/thumb catalog cards onto a sidebar collection, adding membership with
-hover feedback and idempotent re-drop) is implemented and working. Known gaps before this can be archived
-as fully done: no drag source on the list layout's row (1.2), no context-menu "Add to…" alternate entry
-point (blocked on `collection-membership-editing` 3.1), and the sidebar drop target is a hand-rolled
+hover feedback and idempotent re-drop) is implemented and working. The context-menu "Add to…" alternate
+entry point now also exists (`collection-membership-editing`). Known gaps before this can be archived as
+fully done: no drag source on the list layout's row (1.2), and the sidebar drop target is a hand-rolled
 duplicate of `SidebarMenuItem` pending `gpui-component-sidebar-droppable`.
