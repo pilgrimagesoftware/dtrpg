@@ -1,13 +1,13 @@
-# Git Flow for a Rust Crate: `main` + `develop`
+# Git Flow for a Rust Crate: `master` + `develop`
 
 ## Branch model
 
-- **`main`** — always reflects the latest released state. Every commit on `main` corresponds to a tagged, published version. Nothing is committed here directly.
+- **`master`** — always reflects the latest released state. Every commit on `master` corresponds to a tagged, published version. Nothing is committed here directly.
 - **`develop`** — integration branch for ongoing work. Always builds and passes tests, but isn't necessarily released.
 - **`feature/*`** — branched from `develop`, merged back into `develop`.
-- **`fix/*`** — bug fixes branched from `develop` (or from `main` if it's a hotfix — see below), merged back into `develop`.
-- **`release/*`** — cut from `develop` when you're preparing a release. Only version bumps, changelog updates, and last-minute fixes go here. Merges into both `main` and `develop`.
-- **`hotfix/*`** — branched from `main` for urgent fixes to a released version. Merges into both `main` and `develop`.
+- **`fix/*`** — bug fixes branched from `develop` (or from `master` if it's a hotfix — see below), merged back into `develop`.
+- **`release/*`** — cut from `develop` when you're preparing a release. Only version bumps, changelog updates, and last-minute fixes go here. Merges into both `master` and `develop`.
+- **`hotfix/*`** — branched from `master` for urgent fixes to a released version. Merges into both `master` and `develop`.
 
 ## Feature work
 
@@ -116,12 +116,12 @@ Trigger the **Prepare Release** workflow (`workflow_dispatch` in the Actions tab
 1. Runs `git-cliff --bump` against `develop` to determine the next version (e.g. `0.3.0`) from commits since the last tag.
 2. Updates `Cargo.toml` to that version.
 3. Prepends the generated changelog section to `CHANGELOG.md`.
-4. Opens a PR from an auto-created `release/0.3.0` branch into `main`.
+4. Opens a PR from an auto-created `release/0.3.0` branch into `master`.
 
-You review the PR (catch anything that shouldn't ship, fix as needed), merge into `main`, then merge the same changes back into `develop`. Merging into `main` triggers tagging — either as a manual step or via a follow-up workflow step that tags on merge:
+You review the PR (catch anything that shouldn't ship, fix as needed), merge into `master`, then merge the same changes back into `develop`. Merging into `master` triggers tagging — either as a manual step or via a follow-up workflow step that tags on merge:
 
 ```
-git checkout main
+git checkout master
 git pull
 git tag -a v0.3.0 -m "Release 0.3.0"
 git push origin v0.3.0
@@ -167,7 +167,7 @@ jobs:
         uses: peter-evans/create-pull-request@v6
         with:
           branch: release/${{ steps.version.outputs.version }}
-          base: main
+          base: master
           title: "Release ${{ steps.version.outputs.version }}"
           commit-message: "chore(release): ${{ steps.version.outputs.version }}"
           body: "Automated release PR. Review the changelog and Cargo.toml version before merging."
@@ -178,13 +178,13 @@ jobs:
 For an urgent fix to what's currently in production:
 
 ```
-git checkout main
+git checkout master
 git pull
 git checkout -b hotfix/fix-panic-on-empty-input
 # ... fix, bump patch version, commit ...
 ```
 
-PR into `main`, merge, tag (e.g. `v0.3.1`), which triggers the same release workflow. Then PR the same branch into `develop` so the fix isn't lost on the next regular release.
+PR into `master`, merge, tag (e.g. `v0.3.1`), which triggers the same release workflow. Then PR the same branch into `develop` so the fix isn't lost on the next regular release.
 
 ## CI: on every PR and push to `develop`
 
@@ -223,7 +223,7 @@ jobs:
 
 ## CI: release, triggered by a version tag
 
-`.github/workflows/release.yml` — runs only when a `v*` tag is pushed to `main`. Publishes to crates.io and creates the GitHub Release with the changelog for that specific tag attached as the release notes.
+`.github/workflows/release.yml` — runs only when a `v*` tag is pushed to `master`. Publishes to crates.io and creates the GitHub Release with the changelog for that specific tag attached as the release notes.
 
 ```yaml
 name: Release
@@ -268,7 +268,7 @@ Notes:
 - `CARGO_REGISTRY_TOKEN` is a repo secret pointing at your crates.io API token.
 - `git-cliff --current` extracts just the section for the tag that triggered the workflow (rather than the full changelog history), which is what `--body-path` attaches to the release.
 - Since `CHANGELOG.md` was already updated by the `prepare-release` workflow before this tag was created, this step just re-derives the same section for the release notes — it doesn't regenerate the changelog file itself.
-- Restrict who can push tags to `main` in branch protection, so a tag pushed from the wrong branch can't trigger a release.
+- Restrict who can push tags to `master` in branch protection, so a tag pushed from the wrong branch can't trigger a release.
 
 ## Summary of triggers
 
@@ -276,7 +276,7 @@ Notes:
 |---|---|---|
 | PR opened/updated | any → `develop` | fmt, clippy, test |
 | Push | `develop` | fmt, clippy, test |
-| Manual trigger | `develop` | git-cliff bumps version, updates changelog, opens release PR to `main` |
-| Tag push (`v*`) | `main` | test, `cargo publish`, generate scoped changelog, GitHub Release |
+| Manual trigger | `develop` | git-cliff bumps version, updates changelog, opens release PR to `master` |
+| Tag push (`v*`) | `master` | test, `cargo publish`, generate scoped changelog, GitHub Release |
 
-Everything on `develop` is validated continuously; nothing reaches `crates.io` or GitHub Releases without going through `main` and a tag. The version number and changelog are both derived from the same Conventional Commits history, so they can't drift out of sync with each other.
+Everything on `develop` is validated continuously; nothing reaches `crates.io` or GitHub Releases without going through `master` and a tag. The version number and changelog are both derived from the same Conventional Commits history, so they can't drift out of sync with each other.
