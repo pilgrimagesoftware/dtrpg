@@ -11,14 +11,27 @@
   - `add_member` and `remove_member` both implemented for Seeded/Empty/Error modes.
 - [x] 1.4 Verify the underlying DriveThruRPG API/SDK exposes an equivalent endpoint; if not, open a
   `dtrpg-api` change to add it and block on that first
-  - Verified: `dtrpg-api/openapi.yaml` documents only `GET` on `/product_lists` and `/product_list_items` —
-    no add/remove-member endpoint. `dtrpg-sdk/rust`'s `client.rs` has no corresponding method either.
-  - Rather than block the whole feature on a `dtrpg-api` change, both `HttpSdkCollectionsGateway::
-    add_product_list_item` and `::remove_product_list_item` (in `dtrpg-core/src/services/collections_sdk.rs`)
-    fail explicitly with a clear "not supported by the API yet" error instead of guessing an undocumented
-    request shape against the live DriveThruRPG API. A `dtrpg-api` change to add the real endpoints is still
-    an open follow-up — membership add/remove do not currently persist to the server; only the local
-    optimistic update (task 2.1) is visible until those endpoints exist.
+  - Verified at the time: `dtrpg-api/openapi.yaml` documented only `GET` on `/product_lists` and
+    `/product_list_items` — no add/remove-member endpoint, and `dtrpg-sdk/rust`'s `client.rs` had no
+    corresponding method. Both `HttpSdkCollectionsGateway::add_product_list_item` and
+    `::remove_product_list_item` failed explicitly with a "not supported by the API yet" error rather than
+    guess at an undocumented request shape.
+  - Resolved: `dtrpg-api`'s `collections-crud-contract` change (archived
+    `2026-07-06-define-collections-crud-contract`) documented `POST`/`DELETE` on `/product_lists` and
+    `/product_list_items`, and `dtrpg-sdk` 0.1.0 (published to crates.io, already the version
+    `dtrpg-app` depends on) implements `LibraryClient::add_product_list_item`/`delete_product_list_item`
+    against that contract. `HttpSdkCollectionsGateway::add_product_list_item`/`::remove_product_list_item`
+    now call those SDK methods instead of failing explicitly. Because `DELETE /product_list_items/{id}`
+    takes the item's own id (not the product's id), `remove_product_list_item` first paginates
+    `list_product_list_items` to resolve `order_product_id`/`product_id` to its `productListItemId`.
+    Membership add/remove now persist server-side; the optimistic update (task 2.1) is reconciled against
+    a real response instead of always rolling back.
+  - Separately, `dtrpg-sdk/rust`'s own nested `API` submodule pointer had regressed from the
+    `collections-crud-contract` commit back to an older one during an unrelated merge-conflict resolution,
+    orphaning its SDK methods against a spec that no longer documented them. Fixed on a
+    `fix/restore-collections-api-submodule` branch in `dtrpg-sdk/rust`. This didn't block the `dtrpg-app`
+    fix above, since `dtrpg-app` depends on the already-published crates.io 0.1.0 release, not the git
+    submodule.
 
 ## 2. Controller Actions
 
