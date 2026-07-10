@@ -19,6 +19,18 @@ Current preferred example chain:
 Create one or more GitHub Issues to track the work required to implement the OpenSpec changes.
 
 Issues should be created in the appropriate repository, and should:
-- set the appropriate labels, type (e.g. bug, feature, documentation) and level of effort
+- set the appropriate labels, type (e.g. bug, feature, documentation), size, and level of effort
 - set the project and milestone
 - link to the relevant OpenSpec change file
+
+When starting on a change:
+- set the assignee
+- set the start date
+- move the issue's project status to "In Progress".
+- use the issue number and a descriptive branch name (e.g. `fix-auth-session-lifecycle`), per GitHub's 
+  documentation for linking branches and PRs to issues
+- push the branch to the remote and create a pull request, attach the branch/PR to the issue
+
+When completing a change:
+- set the end date
+- move the issue's project status to "Done"
