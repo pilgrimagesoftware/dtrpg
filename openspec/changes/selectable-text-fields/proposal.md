@@ -28,8 +28,11 @@ message into a bug report or a search box.
 ## Impact
 
 - `dtrpg-app/rust/crates/dtrpg-ui/src/ui/views/detail_panel_view.rs`: field value rendering.
-- `dtrpg-app/rust/crates/dtrpg-ui/src/ui/views/catalog_view.rs`: item title/publisher text in list, thumb,
-  and grid layouts.
 - `dtrpg-app/rust/crates/dtrpg-ui/src/ui/views/settings_*.rs`: read-only settings values.
 - `dtrpg-app/rust/crates/dtrpg-ui/src/ui/views/alert_history_view.rs`: alert/error messages.
 - No new dependencies — `gpui-component` is already a workspace dependency.
+
+**Not covered by this change:** `dtrpg-app/rust/crates/dtrpg-ui/src/ui/views/catalog_view.rs`
+(item title/publisher text in list, thumb, and grid layouts) — attempted and reverted; see
+`tasks.md` task 3.1 for the regression this caused. Catalog rows stay plain `div` text
+pending a non-focus-stealing approach (e.g. context-menu copy) in a follow-up change.

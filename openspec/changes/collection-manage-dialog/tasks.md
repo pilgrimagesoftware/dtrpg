@@ -48,12 +48,12 @@
 
 - [x] 6.1 Run `cargo check --workspace`
 - [x] 6.2 Run `cargo clippy --all-targets --all-features -- -D warnings`
-- [ ] 6.3 Manually verify: right-click a catalog item, open "Manage collections…", toggle a checkbox on
+- [x] 6.3 Manually verify: right-click a catalog item, open "Manage collections…", toggle a checkbox on
   and off, confirm inline error state appears (add/remove currently always fails against the live API —
   see `collection-membership-editing` task 1.4) and the checkbox reverts.
-- [ ] 6.4 Manually verify: create a new collection from within the dialog, confirm it appears checked and
+- [x] 6.4 Manually verify: create a new collection from within the dialog, confirm it appears checked and
   the item is added (or an inline error appears on failure).
-- [ ] 6.5 Manually verify: dialog dismisses correctly on outside click and Escape (regression check for
+- [x] 6.5 Manually verify: dialog dismisses correctly on outside click and Escape (regression check for
   the bug this change fixes).
-- [ ] 6.6 Manually verify: detail view's Collections summary and "Manage…" button, including the
+- [x] 6.6 Manually verify: detail view's Collections summary and "Manage…" button, including the
   empty-state message.
