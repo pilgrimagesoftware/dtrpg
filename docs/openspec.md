@@ -13,3 +13,12 @@ Current preferred example chain:
 - Top-level umbrella: `dtrpg/openspec/changes/improve-auth-session-lifecycle`
 - API contract child: `dtrpg-api/openspec/changes/define-auth-session-contract`
 - Preferred SDK child: `dtrpg-sdk/rust/openspec/changes/define-rust-auth-session-behavior`
+
+## GitHub Issues
+
+Create one or more GitHub Issues to track the work required to implement the OpenSpec changes.
+
+Issues should be created in the appropriate repository, and should:
+- set the appropriate labels, type (e.g. bug, feature, documentation) and level of effort
+- set the project and milestone
+- link to the relevant OpenSpec change file
