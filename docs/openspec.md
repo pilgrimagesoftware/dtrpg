@@ -34,6 +34,8 @@ When starting on a change:
 - set the PR metadata according to the issue: assignee, labels, project and milestone
 - link the PR to the issue
 
-When completing a change:
+When completing a change (clean up):
 - set the end date
 - move the issue's project status to "Done"
+- merge the PR
+- remove worktrees
