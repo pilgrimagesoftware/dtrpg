@@ -51,13 +51,15 @@ You are a Rust expert specializing in safe, performant systems programming.
 - Naming: `snake_case` for modules, functions, variables, fields; `CamelCase` (UpperCamelCase) for types, traits, enum
   variants; `SCREAMING_SNAKE_CASE` for `const` and `static`. No Hungarian notation, no abbreviations beyond well-known
   ones (`url`, `id`, `db`).
-- Formatting: `cargo fmt --all -- --check` runs in CI. No hand-formatted blocks. Imports grouped: std, external crates,
+- Formatting: `cargo +nightly fmt --all -- --check` runs in CI. No hand-formatted blocks. Imports grouped: std, external crates,
   local — `rustfmt` handles the order.
 - Docs: every `pub` item carries `///` doc comments with a one-sentence summary on the first line. `pub fn` returning
   `Result` documents `# Errors`; functions that can panic document `# Panics`; every `pub fn` has a `# Examples` block
   that compiles (`cargo test --doc`).
 - Logging: use `tracing` (`info!`, `error!`, `#[tracing::instrument(skip(secrets))]`). Never `println!` / `eprintln!` in
   library code.
+- Functions that end up with too many arguments should be refactored to accept a context or configuration struct instead 
+  of passing many individual arguments.
 
 ## Testing Rules
 

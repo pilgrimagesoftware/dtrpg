@@ -6,7 +6,9 @@ for working on it, and how I'm approaching it (both before and now).
 ## Motivation
 
 I have a lot of RPG books on DriveThruRPG. I like to keep them stored locally and up-to-date.
-OneBookShelf, the company behind DriveThruRPG, provides an application that allows you to sync your books with your local machine, but it's (and no disrespect meant here) a lowest common denominator app (possibly Electron?), and the UI/UX is not great. 
+OneBookShelf, the company behind DriveThruRPG, provides an application that allows you to sync 
+your books with your local machine, but it's (and no disrespect meant here) a lowest common 
+denominator app (possibly Electron?), and the UI/UX is not great. 
 
 I've been trying to learn Rust, and looking for a project to sink my teeth into, and I like
 desktop applications.
@@ -29,7 +31,8 @@ leveraging Claude and ChatGPT to write small scripts and utilities.
 These three elements (Rust, GPUI, and LLMs) came together, and have allowed me to make quite a
 bit of progress on the project of late. 
 
-Then I added OpenSpec to the mix. As I test out the application, I'm using it to generate OpenAPI specs for the design and implementation.
+Then I added OpenSpec to the mix. As I test out the application, I'm using it to generate OpenAPI 
+specs for the design and implementation.
 
 That's where we are now.
 

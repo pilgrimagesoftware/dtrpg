@@ -30,6 +30,9 @@ When starting on a change:
 - use the issue number and a descriptive branch name (e.g. `fix-auth-session-lifecycle`), per GitHub's 
   documentation for linking branches and PRs to issues
 - push the branch to the remote and create a pull request, attach the branch/PR to the issue
+- set the PR title to the issue title without the Conventional Commits prefix
+- set the PR metadata according to the issue: assignee, labels, project and milestone
+- link the PR to the issue
 
 When completing a change:
 - set the end date
