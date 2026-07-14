@@ -35,7 +35,11 @@ using Conventional Commits (`<type>(<scope>): <description>`, per the root `AGEN
 splitting code and doc/task-list changes into separate commits only if that matches the
 repo's existing commit history style - otherwise one commit is fine.
 
-### 5. Push and ensure the PR is in order
+### 5. Archive the change
+
+Use the `openspec-archive-change` skill to archive the change.
+
+### 6. Push and ensure the PR is in order
 
 `git push` the branch. If `project-start-change` already opened a PR, confirm it's still
 pointed at the right base and not marked draft. If no PR exists yet, create one now:
@@ -47,13 +51,13 @@ gh pr create --repo <owner/repo> --base develop --title "<issue title, no Conven
 The `Closes #<n>` (or `Fixes #<n>`) line is what links the PR to the issue and auto-closes it
 on merge - confirm it's present in the PR body even if the PR already existed.
 
-### 6. Wait for checks
+### 7. Wait for checks
 
 `gh pr checks <n> --watch` (or poll `gh pr view <n> --json statusCheckRollup`). If checks
 fail, report the failure and stop - do not merge a red PR. Fix and re-push if the fix is
 clear; otherwise hand back to the user.
 
-### 7. Merge
+### 8. Merge
 
 Confirm with the user before merging, unless they've already authorized auto-merge for this
 task - merging into `develop` is a shared, visible action. Default to squash merge (per
@@ -65,7 +69,7 @@ gh pr merge <n> --squash --delete-branch
 
 `--delete-branch` removes the remote branch; it does not touch the local worktree.
 
-### 8. Close out the Issue
+### 9. Close out the Issue
 
 If the merge's `Closes #<n>` didn't auto-close it (e.g. PR merged into a branch that isn't
 the repo's GitHub default branch), close it explicitly:
@@ -77,7 +81,7 @@ gh issue close <n> --repo <owner/repo>
 Then, per `docs/openspec.md` ("When completing a change"): set the end date if the project
 tracks one, and move the issue's project status to "Done" (`gh project item-edit`).
 
-### 9. Update the local main worktree
+### 10. Update the local main worktree
 
 In the repo's main working tree (not the feature worktree):
 
@@ -91,7 +95,7 @@ top-level `dtrpg`), walk up: in the parent's main working tree, `git add <submod
 and commit the updated submodule reference, then push - repeat at each level up to the
 umbrella `dtrpg` repo if the change touched a nested submodule (see `docs/git-submodules.md`).
 
-### 10. Remove the feature worktree
+### 11. Remove the feature worktree
 
 ```
 git worktree remove /Users/paulyhedral/Projects/Code/Libri/dtrpg/worktrees/<repo-slug>-<branch-slug>
@@ -101,7 +105,7 @@ git branch -D <branch-name>
 If `git worktree remove` refuses because a submodule is checked out inside it, confirm
 `git status --short` and `git submodule status` are clean first, then use `--force`.
 
-### 11. Report back
+### 12. Report back
 
 Summarize: change name, PR number/URL and merge method, issue number and closed state,
 submodule references updated (if any), and confirmation the worktree was removed.
