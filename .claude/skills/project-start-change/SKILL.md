@@ -32,7 +32,7 @@ affected files.
 - If zero or multiple candidates come back, show them to the user (AskUserQuestion) rather
   than guessing. If truly none exists, tell the user and stop - do not create one yourself;
   that is a separate, explicit action (see `docs/openspec.md`'s GitHub Issues section or the
-  `to-issues` skill).
+  `project-create-issue` skill).
 
 ### 4. Prep the issue for active work
 
@@ -79,8 +79,15 @@ Per `docs/openspec.md`:
 
 ### 7. Report back
 
-Summarize: change name, repo, issue number/URL, worktree path, branch name, PR URL. Tell the
-user the worktree is ready for `openspec-apply-change` to begin implementing tasks.
+Summarize: change name, repo, issue number/URL, worktree path, branch name, PR URL.
+
+### 8. Hand off to implementation
+
+Ask the user if they want to begin implementing tasks now. If yes, invoke the
+`openspec-apply-change` skill (`/opsx:apply`) in this session - it picks up from the worktree
+and branch just created. If the session did not switch into the worktree via `EnterWorktree`
+in step 5, tell the user to `cd` there first, since `openspec-apply-change` operates on the
+current working tree.
 
 ## Gotchas
 
