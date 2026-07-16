@@ -2,7 +2,7 @@
 
 ## Stack
 
-- Swift 5.10+, iOS 16+, SwiftUI primary, UIKit only via Representable
+- Swift 5.10+, iOS 16+, AppKit/UIKit primary, absolutely NO SwiftUI
 - async/await, actors, Combine for legacy publishers, SwiftPM, XCTest
 
 ## Hard rules
@@ -20,3 +20,5 @@
 - DI via initializer. No singletons, no service locators.
 - Tests use async/await, `XCTUnwrap`, mock at protocol boundary, ThreadSanitizer in CI.
 - SwiftPM only. SwiftLint enforced. Strict concurrency on. Warnings = errors.
+- Prefer existing UI components over custom UI code.
+- Prefer existing libraries over custom code.
