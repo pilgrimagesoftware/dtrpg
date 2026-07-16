@@ -3,6 +3,11 @@
 This document describes the behavior of the application in maintaining the user's local catalog, and how it interacts
 with the remote API to handle initialization, updates, and downloads.
 
+## Scope
+
+The scope of data managed by the catalog maintenance behavior includes catalog metadata and cache, downloaded content,
+catalog cover image cache, and avatar image cache.
+
 ## Fresh Startup
 
 When the user first starts the application, it is assumed there is no local catalog, i.e., catalog metadata, downloaded 
@@ -61,7 +66,8 @@ credentials. In this case, the application should handle the disconnection grace
 
 The application should include a lightweight network monitor that network processes can use to detect disconnections.
 The network monitor should be able to distinguish between general network inaccessibility and issues with specific 
-endpoints and make that information available to the application.
+endpoints and make that information available to the application. It may make sense for the network monitor to also
+fire off events to notify the application of network state changes.
 
 Processes that require access to a specific endpoint should be able to query the network monitor to determine whether
 they should continue or stop. This type of query should be performed before making a request to the endpoint.
