@@ -96,3 +96,7 @@ stored in the user's keychain. The "Fresh Startup" behavior should be used to re
 It is also possible that user's credentials are inaccessible or expired, while the application still has a valid local catalog.
 In this case, the application should continue to use the local catalog and notify the user that they need to re-authenticate
 (usually done via a non-intrusive banner or notification message).
+
+It is possible for the user to leave the application running for long periods of time, such that a refresh or update the catalog
+could be necessary, and occur after the acceptable cooldown period has elapsed. The application should keep a timer to check if
+it's "time to refresh" and trigger the catalog update if necessary.
