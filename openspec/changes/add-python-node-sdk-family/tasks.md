@@ -7,15 +7,15 @@
 
 ## 2. Child Repository Coordination
 
-- [ ] 2.1 Confirm `dtrpg-api`'s current `develop` branch contract is stable enough for a new SDK implementation to start against
-- [ ] 2.2 Verify `dtrpg-sdk/python` has (or needs) a `dtrpg-api` submodule reference under `API/`, matching the pattern used by `dtrpg-sdk/go`
-- [ ] 2.3 Verify `dtrpg-sdk/js` has (or needs) a `dtrpg-api` submodule reference under `API/`, matching the pattern used by `dtrpg-sdk/go`
+- [x] 2.1 Confirm `dtrpg-api`'s current `develop` branch contract is stable enough for a new SDK implementation to start against — confirmed active, unprotected `develop` at `4a54add` with recent CRUD-endpoint definitions; usable as a starting contract
+- [x] 2.2 Verify `dtrpg-sdk/python` has (or needs) a `dtrpg-api` submodule reference under `API/`, matching the pattern used by `dtrpg-sdk/go` — confirmed missing (no `.gitmodules`); deferred to the `dtrpg-sdk/python` child SDK-implementation change, since adding it now without client code would be dead weight
+- [x] 2.3 Verify `dtrpg-sdk/js` has (or needs) a `dtrpg-api` submodule reference under `API/`, matching the pattern used by `dtrpg-sdk/go` — confirmed missing (no `.gitmodules`); same deferral as 2.2
 
 ## 3. Issue Tracking
 
-- [ ] 3.1 Create a GitHub Issue in `dtrpg-sdk/python` for the initial SDK implementation (config, `dtrpg-api` integration, auth/session lifecycle, library client, CI/release pipeline), linked to this OpenSpec change
-- [ ] 3.2 Create a GitHub Issue in `dtrpg-sdk/js` for the initial SDK implementation (same scope), linked to this OpenSpec change
-- [ ] 3.3 Set labels, type, size, project, and milestone on both issues per `docs/openspec.md`'s issue-tracking convention
+- [x] 3.1 Create a GitHub Issue in `dtrpg-sdk/python` for the initial SDK implementation (config, `dtrpg-api` integration, auth/session lifecycle, library client, CI/release pipeline), linked to this OpenSpec change — [dtrpg-sdk.py#1](https://github.com/pilgrimagesoftware/dtrpg-sdk.py/issues/1)
+- [x] 3.2 Create a GitHub Issue in `dtrpg-sdk/js` for the initial SDK implementation (same scope), linked to this OpenSpec change — [dtrpg-sdk.js#1](https://github.com/pilgrimagesoftware/dtrpg-sdk.js/issues/1)
+- [x] 3.3 Set labels, type, size, project, and milestone on both issues per `docs/openspec.md`'s issue-tracking convention — labeled `enhancement`, typed `Feature`, added to the DriveThruRPG project; neither repo has milestones or a Size/Effort field defined yet, so those were left unset
 
 ## 5. Python SDK Scaffolding (dtrpg-sdk/python)
 
