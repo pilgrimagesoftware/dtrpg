@@ -13,9 +13,11 @@ This proposal is scoped to the umbrella repository: declaring Python and Node as
 - Create GitHub Issues for each child repo's initial implementation work.
 
 **Non-Goals:**
-- Implementing SDK code, tests, or CI in `dtrpg-sdk/python` or `dtrpg-sdk/js` — those are separate child OpenSpec changes scoped to those repos.
-- Choosing the Node package manager, build tool, or publishing target (npm vs. JSR, etc.) — deferred to the `dtrpg-sdk/js` child change's own design doc.
+- Implementing the actual SDK client (auth/session lifecycle, library client behavior) in `dtrpg-sdk/python` or `dtrpg-sdk/js` — that remains a separate child OpenSpec change per repo. Scope was extended to cover the surrounding scaffolding (CI, release pipeline, branch protection, governance docs) directly in this change, since that scaffolding is a prerequisite for any child change to run tests and merge safely — see the scope addendum below.
+- Choosing the Node package manager, build tool, or publishing target (npm vs. JSR, etc.) beyond what's needed to give CI a real target — deferred to the `dtrpg-sdk/js` child change's own design doc for anything beyond a minimal scaffold.
 - Changing behavior of the existing Go, Rust, or Swift SDKs.
+
+**Scope addendum:** the umbrella change now also scaffolds each child repo directly — a minimal buildable package (so CI isn't vacuous), CI/release GitHub Actions workflows, `cliff.toml`, governance docs (`CONTRIBUTING.md`, `SECURITY.md`, `RELEASE.md`), and live GitHub rulesets on `develop`/`master` mirroring `dtrpg-sdk.go` and `dtrpg-sdk.swift`. This still excludes the SDK's actual API client code.
 
 ## Decisions
 
