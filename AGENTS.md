@@ -40,6 +40,7 @@ See @docs/git-repos.md and @docs/git-flow.md for repository structure, branches,
 - Go: see @docs/go.md 
 - Python: see @docs/python.md
 - TypeScript: see @docs/typescript.md
+- GitHub Actions: see @docs/github-actions.md
 
 ## Code Exploration Policy
 
