@@ -6,8 +6,8 @@ This repository contains two main meta-repositories as git submodules:
 
 - **dtrpg-sdk** - SDK implementations across multiple languages (Go, Node/TypeScript, Python, Rust, Swift)
   - `go` - Go SDK implementation
-  - `js` - Node/TypeScript SDK, in development (active target, not yet at parity with `go`/`rust`/`swift`)
-  - `python` - Python SDK, in development (active target, not yet at parity with `go`/`rust`/`swift`)
+  - `js` - Node/TypeScript SDK implementation
+  - `python` - Python SDK implementation
   - `rust` - Rust SDK implementation
   - `swift` - Swift SDK implementation
 
