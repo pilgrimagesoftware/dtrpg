@@ -19,6 +19,10 @@ The meta-repository MUST define the minimum capability set a new SDK language im
 - **WHEN** a `dtrpg-sdk/python` or `dtrpg-sdk/js` implementation is proposed as complete
 - **THEN** it can be checked against the same capability set already implemented by `dtrpg-sdk/go`, `dtrpg-sdk/rust`, and `dtrpg-sdk/swift`
 
+#### Scenario: Python and Node reach parity
+- **WHEN** `dtrpg-sdk/python` and `dtrpg-sdk/js` each ship configuration, `dtrpg-api` submodule integration, auth/session lifecycle, a library client, and a CI/release pipeline
+- **THEN** the meta-repository records both as at parity with `dtrpg-sdk/go`, `dtrpg-sdk/rust`, and `dtrpg-sdk/swift` in `docs/git-repos.md`, and the SDK language family consists of five languages at parity: Go, Node/TypeScript, Python, Rust, and Swift
+
 ### Requirement: Each SDK language MUST have documented authoring conventions
 The meta-repository MUST provide a per-language conventions document (e.g. `docs/go.md`, `docs/rust.md`, `docs/swift.md`, `docs/python.md`) for every language in the SDK family, covering project structure, style, testing, and workflow rules specific to that language.
 
