@@ -1,0 +1,3 @@
+[mcp_servers.jcodemunch]
+command = "uvx"
+args = ["jcodemunch-mcp"]
