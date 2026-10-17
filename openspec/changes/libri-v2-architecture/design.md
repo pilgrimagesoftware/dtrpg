@@ -164,6 +164,26 @@ and so mostly need recognition rather than new reading code.
 Entry listing is lazy by contract. Reading a directory of a 200 MB archive to show a tree must not
 materialize the archive, which also keeps the tab usable on a cloud placeholder.
 
+**Manual collections are DriveThruRPG product lists. There is no separate local model.** Checked against
+the current code, not assumed: `dtrpg-core/services/sdk/collections/gateway.rs`'s list, create, delete,
+add-item, and remove-item calls are all direct calls to the API's `product_lists` and
+`product_list_items` endpoints, and the local `CollectionEntry` cache's own doc comment says plainly that
+it is "a startup-speed optimization, not a source of truth." Goal 4's manual half is already seamless by
+construction, because there is only one object, not two to reconcile.
+
+**Smart collections cannot write back to DriveThruRPG, but a product list is one predicate in their query,
+not a separate kind of thing.** DriveThruRPG has no dynamic-list primitive, so a saved query can never
+become a live product list without freezing into a fixed snapshot the moment it is pushed, which is a
+different feature (manual export) and not this one. Rejected: two visually and structurally distinct
+collection types in the sidebar. Decided instead, per Paul (2026-10-17): `collection: <name>` is a facet
+in the smart-collection query language, alongside `tag`, `publisher`, `system`, and the rest, so a manual
+collection can seed a smart one rather than sit in a separate category from it. An "Upgrade to smart
+collection" action on any manual collection opens the smart-collection editor pre-seeded with
+`collection: <name>`; the server-synced membership stays one clause, and any further clauses the user adds
+apply locally on top. Upgrading does not fork or modify the underlying product list, it only adds a local
+filter in front of its live membership. One sidebar section lists both kinds together, with a small sync
+glyph marking entries backed by a real DriveThruRPG list.
+
 ## Gap analysis: the twelve goals
 
 | # | Goal | Status | What's missing |
@@ -171,7 +191,7 @@ materialize the archive, which also keeps the tab usable on a cloud placeholder.
 | 1 | Cross-platform | Partial | Windows is a `workflow_dispatch` spike and a `continue-on-error` packaging leg, not a CI target |
 | 2 | SDK library access | Done | Nothing |
 | 3 | Browse, search, manage | Partial | Linear-scan search, no facets, no scoped query syntax |
-| 4 | Collections | Partial | Manual only; no smart collections |
+| 4 | Collections | Partial | Manual (= DriveThruRPG product lists) only; no smart collections, no upgrade path |
 | 5 | Downloads, partial and multi-location | Partial | Single `storage_root_path`; no placement rules |
 | 6 | OS-native integration | Mostly absent | iCloud is spec-only with no code; tags and xattrs absent everywhere |
 | 7 | Themes | Partial | Closed six-variant enum; users can't add themes |
@@ -207,7 +227,7 @@ app is already ahead of `claude-1` on several of these.
 |---|---|---|
 | Search | Toolbar input, linear scan | Omnibox with removable scoped tokens |
 | Filtering | Sidebar section plus sort | Facet rail with live counts from the same query |
-| Collections | Manual, sidebar section | Manual plus smart collections as saved queries |
+| Collections | Manual (= DriveThruRPG product lists) | Manual and smart unified in one section; any manual collection can be upgraded, its product list membership becoming one predicate in the smart query |
 | Detail | Tabbed view with file list | Inspector with Info, Files, Contents, Summary |
 | Containers | Zip popover | Lazy tree, per-entry preview, selective extract, pluggable formats |
 | Downloads | Button plus queue | Sheet: which files, which root, space check, optional rule |
@@ -329,3 +349,10 @@ Views should be touched only where the dependency direction forces it.
   `container-browse-and-extract`.
 - **File size limit:** the rule is real and the violations are an oversight to be remedied. Knot was the
   source and inspiration for the convention. Scope and sequencing in the section above.
+
+## Resolved (2026-10-17)
+
+- **Collections model:** confirmed manual collections already are DriveThruRPG product lists with no
+  separate local model, and decided smart collections unify with them in the sidebar via a `collection`
+  facet rather than sitting in a visually separate category. Reasoning and the upgrade flow are in the
+  Decisions section above.
