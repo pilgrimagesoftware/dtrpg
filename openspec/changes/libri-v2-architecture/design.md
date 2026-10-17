@@ -250,24 +250,35 @@ This change is the only prerequisite-heavy one. After it, the rest are mostly pa
 | Order | Change | Repo | Depends on |
 |---|---|---|---|
 | 0 | `libri-v2-architecture` (this) | app/rust | none |
-| 1 | `library-index-search-and-facets` | app/rust | 0 |
-| 2 | `platform-native-file-state` | app/rust | 0 |
-| 2 | `themes-as-data` | app/rust | 0 |
-| 2 | `multi-root-storage-and-placement` | app/rust | 0 |
-| 2 | `windows-ci-and-packaging` | app/rust | 0 |
-| 3 | `tags-and-os-projection` | app/rust | 1, 2 |
-| 3 | `smart-collections` | app/rust | 1 |
-| 3 | `per-view-presentation` | app/rust | 0 |
-| 3 | `container-browse-and-extract` | app/rust | 0 |
-| 3 | `library-analytics-charts` (exists) | umbrella | 1 |
-| 4 | `mcp-server` | app/rust | 0, 1 |
-| 4 | `content-summaries` | app/rust | 1 |
+| 1 | `library-index-search-and-facets` | app/rust | `libri-v2-architecture` |
+| 2 | `library-controller-decomposition` | app/rust | `library-index-search-and-facets` |
+| 2 | `platform-native-file-state` | app/rust | `libri-v2-architecture` |
+| 2 | `themes-as-data` | app/rust | `libri-v2-architecture` |
+| 2 | `multi-root-storage-and-placement` | app/rust | `libri-v2-architecture` |
+| 2 | `windows-ci-and-packaging` | app/rust | `libri-v2-architecture` |
+| 3 | `tags-and-os-projection` | app/rust | `library-controller-decomposition`, `platform-native-file-state` |
+| 3 | `smart-collections` | app/rust | `library-controller-decomposition` |
+| 3 | `per-view-presentation` | app/rust | `libri-v2-architecture` |
+| 3 | `container-browse-and-extract` | app/rust | `libri-v2-architecture` |
+| 3 | `library-analytics-charts` (exists) | umbrella | `library-controller-decomposition` |
+| 4 | `mcp-server` | app/rust | `libri-v2-architecture`, `library-index-search-and-facets` |
+| 4 | `content-summaries` | app/rust | `library-index-search-and-facets` |
 | see below | `enforce-file-size-limit` | app/rust | none |
+
+`library-controller-decomposition` is new to this table, added after `library-index-search-and-facets`
+landed and turned up a gap: the index exists, is tested, and is correct, but nothing in the live app calls
+it yet. `LibraryController` still holds its own in-memory `Vec` and scans it for search and filtering.
+ADR 0002 named this decomposition ("move catalog data and queue state into `dtrpg-core`, leaving the
+UI-side controller as a view-model over `LibraryApi`") as deferred work, but this table never gave it a
+slot, so `tags-and-os-projection`, `smart-collections`, and `library-analytics-charts` looked ready to
+start the moment the index existed when they actually need it wired in first - none of them have anything
+to query otherwise. Dependencies above are corrected to route through it rather than through the index
+directly, for the three changes that need live search/facets, not just a schema.
 
 Five ADRs belong in `dtrpg-app/rust/docs/adr/`: the crate inversion and facade boundary, SQLite as the
 index, the platform-integration abstraction, themes as data, and the container-format abstraction. The
-existing `openspec/changes/library-analytics-charts` change stays as written and gains a dependency on the
-index.
+existing `openspec/changes/library-analytics-charts` change stays as written and gains a dependency on
+`library-controller-decomposition`.
 
 ### The file size limit
 
@@ -356,3 +367,6 @@ Views should be touched only where the dependency direction forces it.
   separate local model, and decided smart collections unify with them in the sidebar via a `collection`
   facet rather than sitting in a visually separate category. Reasoning and the upgrade flow are in the
   Decisions section above.
+- **Crate inversion, size-check gate, and the library index all landed and verified.** Three commits
+  across two branches, build/clippy/test clean throughout, nothing pushed changed behavior. Found and
+  fixed a sequencing gap in the table above: `library-controller-decomposition` needed its own slot.
