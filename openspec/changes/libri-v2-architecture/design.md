@@ -251,34 +251,49 @@ This change is the only prerequisite-heavy one. After it, the rest are mostly pa
 |---|---|---|---|
 | 0 | `libri-v2-architecture` (this) | app/rust | none |
 | 1 | `library-index-search-and-facets` | app/rust | `libri-v2-architecture` |
-| 2 | `library-controller-decomposition` | app/rust | `library-index-search-and-facets` |
 | 2 | `platform-native-file-state` | app/rust | `libri-v2-architecture` |
 | 2 | `themes-as-data` | app/rust | `libri-v2-architecture` |
 | 2 | `multi-root-storage-and-placement` | app/rust | `libri-v2-architecture` |
 | 2 | `windows-ci-and-packaging` | app/rust | `libri-v2-architecture` |
-| 3 | `tags-and-os-projection` | app/rust | `library-controller-decomposition`, `platform-native-file-state` |
-| 3 | `smart-collections` | app/rust | `library-controller-decomposition` |
+| 3 | `tags-and-os-projection` | app/rust | `library-index-search-and-facets`, `platform-native-file-state` |
+| 3 | `smart-collections` | app/rust | `library-index-search-and-facets` |
 | 3 | `per-view-presentation` | app/rust | `libri-v2-architecture` |
 | 3 | `container-browse-and-extract` | app/rust | `libri-v2-architecture` |
-| 3 | `library-analytics-charts` (exists) | umbrella | `library-controller-decomposition` |
+| 3 | `library-analytics-charts` (exists) | umbrella | `library-index-search-and-facets` |
 | 4 | `mcp-server` | app/rust | `libri-v2-architecture`, `library-index-search-and-facets` |
 | 4 | `content-summaries` | app/rust | `library-index-search-and-facets` |
 | see below | `enforce-file-size-limit` | app/rust | none |
 
-`library-controller-decomposition` is new to this table, added after `library-index-search-and-facets`
-landed and turned up a gap: the index exists, is tested, and is correct, but nothing in the live app calls
-it yet. `LibraryController` still holds its own in-memory `Vec` and scans it for search and filtering.
-ADR 0002 named this decomposition ("move catalog data and queue state into `dtrpg-core`, leaving the
-UI-side controller as a view-model over `LibraryApi`") as deferred work, but this table never gave it a
-slot, so `tags-and-os-projection`, `smart-collections`, and `library-analytics-charts` looked ready to
-start the moment the index existed when they actually need it wired in first - none of them have anything
-to query otherwise. Dependencies above are corrected to route through it rather than through the index
-directly, for the three changes that need live search/facets, not just a schema.
+**Correction, superseding the previous revision of this table.** After `library-index-search-and-facets`
+landed, I added a `library-controller-decomposition` row here on the premise that `tags-and-os-projection`,
+`smart-collections`, and `library-analytics-charts` needed `LibraryController`'s live search/filter path
+rewired to query the index before they could start. That premise was wrong, and implementing against it
+surfaced why: `LibraryController` saves to the index asynchronously, on the same background executor that
+already wrote the JSON cache, but reads `self.catalog` synchronously on every render. Making the render
+path query the index instead would mean either inline SQLite I/O on a GPUI callback or a bounded staleness
+window - both real costs taken on for no real gain, and the first one directly violates this codebase's
+own rule (`AGENTS.md`: "No I/O on the render path - GPUI re-renders per keystroke"). A local SQLite query
+is still I/O; it does not stop being disk access for not crossing a network.
+
+The actual, correct state: `self.catalog` stays the synchronous in-memory source for the interactive
+render path, unchanged, same as the `library-analytics-charts` design's own prior decision ("aggregation
+computed on render, not cached separately... no need for a separate incrementally-maintained aggregate
+cache"). The index is a write-mostly backing store from the UI's perspective - durable persistence, the
+MCP server's reads, and anything that can tolerate an async boundary - reachable through `LibraryApi`
+directly. None of the three changes above need anything more than that, so they depend on
+`library-index-search-and-facets` again, not on a decomposition that was never actually required.
+
+`LibraryApi` was extended with index-backed read methods (`index_list_items`, `index_get_item`, `search`,
+`index_count_all`, `index_count_by_status`, `index_count_recently_updated`) as part of chasing this down -
+that part was real, needed, and is done; only the render-path rewiring premise was wrong. ADR 0002's
+originally-deferred items (the three-queue merge, the shared Tokio runtime, and if ever wanted, moving
+catalog *ownership* to `dtrpg-core` while keeping it in-memory and synchronous for rendering) remain
+deferred, independent future work, blocking nothing in this table.
 
 Five ADRs belong in `dtrpg-app/rust/docs/adr/`: the crate inversion and facade boundary, SQLite as the
 index, the platform-integration abstraction, themes as data, and the container-format abstraction. The
 existing `openspec/changes/library-analytics-charts` change stays as written and gains a dependency on
-`library-controller-decomposition`.
+`library-index-search-and-facets`.
 
 ### The file size limit
 
@@ -368,5 +383,11 @@ Views should be touched only where the dependency direction forces it.
   facet rather than sitting in a visually separate category. Reasoning and the upgrade flow are in the
   Decisions section above.
 - **Crate inversion, size-check gate, and the library index all landed and verified.** Three commits
-  across two branches, build/clippy/test clean throughout, nothing pushed changed behavior. Found and
-  fixed a sequencing gap in the table above: `library-controller-decomposition` needed its own slot.
+  across two branches, build/clippy/test clean throughout, nothing pushed changed behavior.
+- **`library-controller-decomposition`: added, then withdrawn as a mistake.** First added a sequencing
+  slot for it on the premise that three downstream changes needed `LibraryController`'s render path
+  rewired to the index. Dispatched it; the resulting work showed the premise was wrong (it would mean
+  SQLite I/O on the render path, which this codebase's own conventions already forbid). `LibraryApi`
+  still gained real, needed index-backed read methods from that work. The row is removed and the three
+  downstream changes depend on `library-index-search-and-facets` directly again. Full correction in the
+  Child changes and sequencing section above.
