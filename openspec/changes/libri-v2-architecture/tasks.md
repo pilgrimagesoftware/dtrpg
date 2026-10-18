@@ -1,8 +1,7 @@
 ## 0. Status and staging
 
 Status below was checked against `dtrpg-app.rs` `develop` on 2026-10-18, and updated as stage 3 landed.
-The work is split into four stages. Stages 1, 2 and 3 are essentially done; stage 4 holds the remaining
-work.
+The work is split into four stages. Stages 1, 2 and 3 are essentially done; stage 4 is done apart from its merge.
 Each stage is a separate issue and PR in `dtrpg-app/rust`, in this order:
 
 | Stage | Scope | Status | Capability / ADR |
@@ -10,7 +9,7 @@ Each stage is a separate issue and PR in `dtrpg-app/rust`, in this order:
 | 1 | Crate inversion and `LibraryApi` facade | Done | `libri-api-facade`, ADR 0002 |
 | 2 | SQLite library index | Done | `libri-library-index`, ADR 0003 |
 | 3 | Shared runtime and unified work queue | Done (`dtrpg-app.rs#318`, merged) | `libri-work-queue`, ADR 0007 |
-| 4 | Platform integration layer | In progress (`dtrpg-app.rs#325`) | `libri-platform-integration`, ADR 0004 |
+| 4 | Platform integration layer | Done (`dtrpg-app.rs#325`, awaiting merge) | `libri-platform-integration`, ADR 0004 |
 
 Stages 3 and 4 were independent of each other. Per `design.md`, the interactive
 catalog keeps its synchronous in-memory render model: the index is not read on the render path, so no
@@ -94,9 +93,10 @@ Requirements are in `specs/libri-platform-integration`.
 - [x] 4.6 Capability gating and materialization. Opening an offloaded file now requests and waits for it in the
       background (`materialize_and_wait`). No control depends on a capability that is `false` today, so there
       was nothing to hide; ADR 0004 says a later control must read `Capabilities` first
-- [ ] 4.7 Tags: implement the index-as-source-of-truth projection (macOS `_kMDItemUserTags`, Linux
-      `user.xdg.tags`, Windows index only) with reconciliation on launch. This may split into the
-      `tags-and-os-projection` child change, which depends on `library-index-search-and-facets`
+- [x] 4.7 Tags: split out as the `tags-and-os-projection` child change
+      (`dtrpg-app.rs#326`, proposal in `dtrpg-app/rust/openspec/changes/tags-and-os-projection`). It builds the
+      index-as-source-of-truth projection (macOS `_kMDItemUserTags`, Linux `user.xdg.tags`, Windows index only)
+      with reconciliation on launch. Stage 4 does not wait for it
 - [x] 4.8 Reconcile `icloud-offloaded-file-awareness` with the trait. It was already built behind
       `dtrpg_core::platform`; its tasks are ticked and its spec restated. Left open, not archived, for its
       manual check on a real Mac (its task 5.6)
