@@ -286,9 +286,10 @@ directly. None of the three changes above need anything more than that, so they 
 `LibraryApi` was extended with index-backed read methods (`index_list_items`, `index_get_item`, `search`,
 `index_count_all`, `index_count_by_status`, `index_count_recently_updated`) as part of chasing this down -
 that part was real, needed, and is done; only the render-path rewiring premise was wrong. ADR 0002's
-originally-deferred items (the three-queue merge, the shared Tokio runtime, and if ever wanted, moving
-catalog *ownership* to `dtrpg-core` while keeping it in-memory and synchronous for rendering) remain
-deferred, independent future work, blocking nothing in this table.
+originally-deferred items have since landed in part: the shared Tokio runtime and the three-queue merge
+are done (stage 3, ADR 0007 in `dtrpg-app/rust`). Moving catalog *ownership* to `dtrpg-core`, if ever
+wanted, while keeping it in-memory and synchronous for rendering, remains deferred, independent future
+work, blocking nothing in this table.
 
 Five ADRs belong in `dtrpg-app/rust/docs/adr/`: the crate inversion and facade boundary, SQLite as the
 index, the platform-integration abstraction, themes as data, and the container-format abstraction. The
