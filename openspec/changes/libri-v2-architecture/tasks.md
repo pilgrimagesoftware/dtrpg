@@ -1,17 +1,18 @@
 ## 0. Status and staging
 
-Status below was checked against `dtrpg-app.rs` `develop` (read-only, not built) on 2026-10-18. The work
-is split into four stages. Stages 1 and 2 are essentially done; stages 3 and 4 hold the remaining work.
+Status below was checked against `dtrpg-app.rs` `develop` on 2026-10-18, and updated as stage 3 landed.
+The work is split into four stages. Stages 1, 2 and 3 are essentially done; stage 4 holds the remaining
+work.
 Each stage is a separate issue and PR in `dtrpg-app/rust`, in this order:
 
 | Stage | Scope | Status | Capability / ADR |
 |---|---|---|---|
 | 1 | Crate inversion and `LibraryApi` facade | Done | `libri-api-facade`, ADR 0002 |
 | 2 | SQLite library index | Done | `libri-library-index`, ADR 0003 |
-| 3 | Shared runtime and unified work queue | Not started | `libri-work-queue` |
+| 3 | Shared runtime and unified work queue | Done (`dtrpg-app.rs#318`, awaiting merge) | `libri-work-queue`, ADR 0007 |
 | 4 | Platform integration layer | Partly done | `libri-platform-integration`, ADR 0004 |
 
-Stages 3 and 4 are independent of each other and can proceed in parallel. Per `design.md`, the interactive
+Stages 3 and 4 were independent of each other. Per `design.md`, the interactive
 catalog keeps its synchronous in-memory render model: the index is not read on the render path, so no
 "controller decomposition" stage exists.
 
@@ -42,26 +43,38 @@ catalog keeps its synchronous in-memory render model: the index is not read on t
 
 ## 3. Stage 3: Shared runtime and unified work queue
 
-Work-queue requirements are in `specs/libri-work-queue`.
+Work-queue requirements are in `specs/libri-work-queue`. Implemented in `dtrpg-app.rs` pull request #318;
+the design is ADR 0007 there, and the app's own specs are restated by its `adopt-core-work-queue` change.
 
-- [ ] 3.1 Add one shared Tokio runtime to `dtrpg-core`, owned by the facade and handed out as handles
-- [ ] 3.2 Replace the three per-site runtimes with that handle: `services/sdk/connection.rs` (two sites,
+- [x] 3.1 Add one shared Tokio runtime to `dtrpg-core` and hand it out as handles. (`dtrpg_core::runtime`,
+      a process-wide runtime built on first use; not owned by the facade, because the services that need
+      it are built before any facade exists.)
+- [x] 3.2 Replace the three per-site runtimes with that handle: `services/sdk/connection.rs` (two sites,
       one in test code) and `services/login.rs`
-- [ ] 3.3 Add a bounded priority queue to `dtrpg-core` with shared concurrency accounting, cancellation of
-      pending and running work, and progress reporting
-- [ ] 3.4 Move thumbnail fetching onto the queue (replaces `thumbnail_queue` in
+- [x] 3.3 Add a bounded priority queue to `dtrpg-core` with shared concurrency accounting, cancellation of
+      pending and running work, and progress reporting (`dtrpg_core::work`)
+- [x] 3.4 Move thumbnail fetching onto the queue (replaces `thumbnail_queue` in
       `dtrpg-ui/src/controllers/library/mod.rs`)
-- [ ] 3.5 Move downloads onto the queue (replaces `download_queue`); user-initiated downloads outrank
+- [x] 3.5 Move downloads onto the queue (replaces `download_queue`); user-initiated downloads outrank
       thumbnails
-- [ ] 3.6 Move on-disk availability checks onto the queue (replaces `check_queue`)
-- [ ] 3.7 Report queue progress to the activity panel through `LibraryApi`
-- [ ] 3.8 Close the network boundary leak: move the direct `reqwest` calls in
-      `dtrpg-ui/src/controllers/library/thumbnails.rs` and `dtrpg-core/src/data/avatar.rs` behind a core
-      service trait with a test seam
-- [ ] 3.9 Tests: concurrency limit honored, priority order, cancel pending, cancel running releases its
-      slot, and the queue runs with no window (`dtrpg-mcp` path)
-- [ ] 3.10 Restate `rust-resource-work-queue-topology` against `libri-work-queue`
-- [ ] 3.11 Record the decision in an ADR (extend ADR 0002 or add a new one)
+- [x] 3.6 Move availability checks onto the queue (replaces `check_queue`). Checks are their own lane: one
+      at a time, outside the shared limit. On-disk verification of a selected item is deliberately not
+      queued (a handful of `exists` calls the user is waiting on).
+- [x] 3.7 Report download progress to the activity panel. Downloads never reported progress before, so
+      this added a progress callback to `LibraryService::download_item` (`DownloadControl`) and the
+      activity panel's progress bar. Not done through `LibraryApi`: the queue still belongs to the desktop
+      controller, and the MCP server has no download tool yet (see 3.12).
+- [x] 3.8 Close the network boundary leak: cover fetching (`services::covers`) and avatar fetching
+      (`services::avatar`) sit behind transport traits with a test seam, and the UI crate no longer depends
+      on `reqwest`
+- [x] 3.9 Tests: concurrency limit honored, priority order, cancel pending, cancel running releases its
+      slot, and the queue runs with no window (the queue's own tests run in `dtrpg-core` with no GPUI)
+- [x] 3.10 Restate `rust-resource-work-queue-topology` against `libri-work-queue` (the app's
+      `adopt-core-work-queue` change, which also restates the thumbnail and download specs and adds
+      `availability-check-scheduling`), and bring `specs/libri-work-queue` into line with what was built
+- [x] 3.11 Record the decision in an ADR (ADR 0007, `dtrpg-app/rust/docs/adr/0007-core-work-queue.md`)
+- [ ] 3.12 Expose the queue and its events through `LibraryApi`, when the MCP server gets tools that
+      download. Nothing needs it yet.
 
 ## 4. Stage 4: Platform integration layer
 
