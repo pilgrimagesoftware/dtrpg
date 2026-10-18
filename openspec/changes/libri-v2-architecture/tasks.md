@@ -9,8 +9,8 @@ Each stage is a separate issue and PR in `dtrpg-app/rust`, in this order:
 |---|---|---|---|
 | 1 | Crate inversion and `LibraryApi` facade | Done | `libri-api-facade`, ADR 0002 |
 | 2 | SQLite library index | Done | `libri-library-index`, ADR 0003 |
-| 3 | Shared runtime and unified work queue | Done (`dtrpg-app.rs#318`, awaiting merge) | `libri-work-queue`, ADR 0007 |
-| 4 | Platform integration layer | Partly done | `libri-platform-integration`, ADR 0004 |
+| 3 | Shared runtime and unified work queue | Done (`dtrpg-app.rs#318`, merged) | `libri-work-queue`, ADR 0007 |
+| 4 | Platform integration layer | In progress (`dtrpg-app.rs#325`) | `libri-platform-integration`, ADR 0004 |
 
 Stages 3 and 4 were independent of each other. Per `design.md`, the interactive
 catalog keeps its synchronous in-memory render model: the index is not read on the render path, so no
@@ -43,7 +43,7 @@ catalog keeps its synchronous in-memory render model: the index is not read on t
 
 ## 3. Stage 3: Shared runtime and unified work queue
 
-Work-queue requirements are in `specs/libri-work-queue`. Implemented in `dtrpg-app.rs` pull request #318;
+Work-queue requirements are in `specs/libri-work-queue`. Implemented in `dtrpg-app.rs` pull request #318 (merged);
 the design is ADR 0007 there, and the app's own specs are restated by its `adopt-core-work-queue` change.
 
 - [x] 3.1 Add one shared Tokio runtime to `dtrpg-core` and hand it out as handles. (`dtrpg_core::runtime`,
@@ -86,17 +86,20 @@ Requirements are in `specs/libri-platform-integration`.
       (`util/reveal.rs`, `util/icloud_status.rs`, `catalog_view.rs`, `detail_panel_view.rs`,
       `settings_storage_view.rs`, `title_bar_view.rs`)
 - [x] 4.3 Record the decision in ADR 0004
-- [ ] 4.4 Audit the remaining `cfg(target_os)` blocks (`dtrpg-core`: `logging.rs`, `data/file_openers.rs`,
-      `data/constants.rs`, `data/paths.rs`; `dtrpg-ui`: `util/datetime.rs`) and move any that are
-      platform behavior rather than path or build constants behind the trait
-- [ ] 4.5 Verify each per-OS implementation against the table in ADR 0004 (file state, materialize,
-      reveal), and mark unsupported operations as `false` in `Capabilities`
-- [ ] 4.6 Hide UI affordances whose capability is `false`; add a test per platform
+- [x] 4.4 Audit the remaining `cfg(target_os)` blocks. All are paths, build constants, or one standard-library
+      call in a util, so none moves behind the trait; the audit table is in ADR 0004
+- [x] 4.5 Verify each per-OS implementation against the table in ADR 0004. Fixed: Windows file state, the
+      Windows reveal exit status, and macOS offload detection (now `st_flags`). Reading a real placeholder on
+      macOS or Windows is not covered by an automated test
+- [x] 4.6 Capability gating and materialization. Opening an offloaded file now requests and waits for it in the
+      background (`materialize_and_wait`). No control depends on a capability that is `false` today, so there
+      was nothing to hide; ADR 0004 says a later control must read `Capabilities` first
 - [ ] 4.7 Tags: implement the index-as-source-of-truth projection (macOS `_kMDItemUserTags`, Linux
       `user.xdg.tags`, Windows index only) with reconciliation on launch. This may split into the
       `tags-and-os-projection` child change, which depends on `library-index-search-and-facets`
-- [ ] 4.8 Reconcile `icloud-offloaded-file-awareness` (in `dtrpg-app/rust`, all tasks unchecked) with the
-      trait that now exists, then complete or retire it
+- [x] 4.8 Reconcile `icloud-offloaded-file-awareness` with the trait. It was already built behind
+      `dtrpg_core::platform`; its tasks are ticked and its spec restated. Left open, not archived, for its
+      manual check on a real Mac (its task 5.6)
 
 ## 5. Cross-cutting
 
