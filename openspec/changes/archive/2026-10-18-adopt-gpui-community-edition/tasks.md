@@ -1,9 +1,7 @@
-## 0. Status: Deferred
+## 0. Status: Superseded
 
-Blocked on confirmed `gpui-component` / `gpui-ce` API incompatibility (10 broken `Styled` call sites in
-`gpui-component`'s `main` branch — see Findings in `design.md`). Deferred until `gpui-component` (or a
-fork) targets `gpui-ce`, or a decision is made to maintain a private `gpui-component` fork. Do not resume
-without re-checking whether upstream `gpui-component` has moved.
+Obsolete. The app migrated to `gpui-kit` (ADR 0001 in `dtrpg-app/rust`) instead of `gpui-ce`. Archived
+unimplemented on 2026-10-18; the unchecked tasks below were never done and are kept for history only.
 
 ## 1. Feasibility
 
