@@ -1,5 +1,7 @@
 # UI Layout Revamp
 
+OBSOLETE: see dtrpg-design/claude-2
+
 - See gpui-components gallery demo
 
 ## Main window
