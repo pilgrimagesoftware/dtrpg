@@ -103,13 +103,17 @@ Requirements are in `specs/libri-platform-integration`.
 
 ## 5. Cross-cutting
 
-- [ ] 5.1 Wire `make size-check` into CI. `design.md` records the gate as landed, but `dtrpg-app/rust`
-      `develop` has no `Makefile` and `ci.yml` has no size check. Sixteen files exceed 500 lines.
-      Add the gate as a warning, split the files, then make it fail. Tracked as the separate
-      `enforce-file-size-limit` change; sequence the view splits after the in-flight view work lands
-- [ ] 5.2 Correct `dtrpg-app/rust/AGENTS.md` examples that reference Knot (`knot_core::l10n`,
-      `parking_lot::Mutex`) so they match Libri's stack
-- [ ] 5.3 ADR for the container-format abstraction exists (0006); confirm 0005 (themes) and 0006 match
-      what was built, since `container-browse-and-extract` and `mcp list_archive_entries` have shipped
+- [x] 5.1 Wire `make size-check` into CI. The five files still over 500 lines in `dtrpg-app/rust`
+      `develop` (`catalog_view.rs`, `detail_panel_view.rs`, `root_view.rs`, `controllers/settings.rs`,
+      `controllers/library/catalog_sync.rs`) were split by concern into directory modules following
+      `AGENTS.md`'s `mod.rs`-declares convention; `ci.yml` now runs `make size-check` as a failing gate
+      (one OS leg, since the check is OS-independent)
+- [x] 5.2 Corrected `dtrpg-app/rust/AGENTS.md` examples that referenced Knot (`knot_core::l10n`,
+      `parking_lot::Mutex`) to match Libri's actual stack (`rust_i18n::t!`, `std::sync::Mutex`)
+- [x] 5.3 ADR 0005 (themes) and ADR 0006 (container format) both matched what shipped — `data/theme.rs`
+      is no longer the closed `ThemeKey` enum (confirmed: 267 lines, TOML-backed `ColorTokens`/
+      `LibriTheme`, loader/watcher/gallery/user themes all exist), and `container-browse-and-extract`/
+      `mcp list_archive_entries` are both in `dtrpg-core`. ADRs 0003, 0005, 0006, 0007 flipped from
+      Proposed to Accepted
 - [ ] 5.4 Windows CI promotion stays in the separate `windows-ci-and-packaging` change
-- [ ] 5.5 When all four stages are complete, archive this change with `openspec-archive-change`
+- [x] 5.5 When all four stages are complete, archive this change with `openspec-archive-change`
