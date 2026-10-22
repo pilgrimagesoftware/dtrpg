@@ -1,8 +1,8 @@
 [
     {
-        "label": "Run DTRPG Core (Rust)",
+        "label": "Run Libri (Rust)",
         "cwd": "${ZED_WORKTREE_ROOT}/dtrpg-app/rust",
-        "command": "cargo run -p dtrpg-core",
+        "command": "cargo run --bin Libri",
         "use_new_terminal": true,
     },
 ]
