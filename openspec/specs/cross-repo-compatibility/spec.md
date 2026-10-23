@@ -1,6 +1,8 @@
 ## Purpose
 Define how the API, SDK, and application repositories stay compatible as submodule references move so the meta-repository can coordinate safe multi-repo rollouts.
+
 ## Requirements
+
 ### Requirement: Cross-repository compatibility expectations must be documented
 The meta-repository MUST define the compatibility expectations between the API, SDK, and application repositories.
 
@@ -34,3 +36,16 @@ The top-level meta-repository MUST record which existing app-level capabilities 
 - **WHEN** a coordinating proposal moves or consolidates behavior already specified by app-level capabilities such as `activity-panel`, `notification-banner`, `app-menu-bar`, or settings-related capabilities
 - **THEN** the coordinating specification records which app-level capabilities are depended upon and confirms they are not being redefined, only relocated or referenced
 
+### Requirement: Desktop UI layout initiatives MUST identify implementation repositories
+The top-level meta-repository MUST identify the child repositories responsible for implementation whenever a desktop UI layout initiative defines shared application behavior across app implementations.
+
+#### Scenario: Planning a shared desktop layout change
+- **WHEN** a proposed desktop UI layout change affects more than one application repository
+- **THEN** the coordinating proposal identifies the app meta-repository and implementation repositories expected to carry child proposals or code changes
+
+### Requirement: Desktop UI layout rollout MUST preserve library data and auth dependencies
+The top-level meta-repository MUST capture dependency expectations when a desktop UI layout depends on library data models, authentication state, or sync behavior provided by child repositories.
+
+#### Scenario: Sequencing layout work with dependent repository behavior
+- **WHEN** a desktop UI layout change depends on library metadata, account state, or background sync behavior
+- **THEN** the coordinating specification records whether API, SDK, or app repositories must land supporting behavior before the layout can be treated as complete

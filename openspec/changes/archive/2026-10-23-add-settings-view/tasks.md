@@ -19,8 +19,8 @@
 ## 3. Rust App — Storage Section
 
 - [x] 3.1 Create `settings_storage_view.rs` rendering the current `StorageConfig::root_path()` as a read-only path label
-- [ ] 3.2 Add "Change…" button that invokes the `rfd` folder picker; on confirmation, run writability validation and show the "files will not be moved" warning dialog before saving
-- [ ] 3.3 Add "Show in Finder / Explorer / Files" button that calls `reveal_in_file_manager` on the storage root (creating the directory first if it does not exist)
+- [x] 3.2 Add "Change…" button that invokes the `rfd` folder picker; on confirmation, run writability validation and show the "files will not be moved" warning dialog before saving
+- [x] 3.3 Add "Show in Finder / Explorer / Files" button that calls `reveal_in_file_manager` on the storage root (creating the directory first if it does not exist)
 - [x] 3.4 Wire storage section to `SettingsController::Storage` tab
 
 ## 4. Rust App — FileOpenerConfig Persistence
@@ -40,7 +40,7 @@
 - [x] 5.3 Flag invalid (stale) override rows with a warning indicator; call `FileOpenerConfig::validate_all()` when the section is first rendered
 - [x] 5.4 Implement "Add" control: present an inline row or dialog for extension input + application picker via `rfd::FileDialog` (filter to `.app` on macOS, executable on Windows/Linux)
 - [x] 5.5 Normalize the entered extension to lowercase with no leading dot before saving
-- [ ] 5.6 Implement edit: re-open the application picker pre-filled with the current path; update the entry on confirmation
+- [x] 5.6 Implement edit: re-open the application picker pre-filled with the current path; update the entry on confirmation
 - [x] 5.7 Implement remove: delete the entry from `FileOpenerConfig` and refresh the list
 - [x] 5.8 Wire File Openers section to `SettingsController::FileOpeners` tab
 
@@ -48,11 +48,11 @@
 
 > **BLOCKED**: `ItemOpener` does not yet exist. These tasks depend on the `open-item-in-default-app` change.
 
-- [ ] 6.1 Load `FileOpenerConfig` in `ItemOpener` (or accept it as a constructor argument) so it is available at open time
-- [ ] 6.2 In `ItemOpener::open(path)`, call `FileOpenerConfig::find_override(extension)` before dispatching to `open::that`
-- [ ] 6.3 If an override is found and its `app_path` exists, use `open::with(file_path, app_path)` or `Command::new(app_path).arg(file_path)`
-- [ ] 6.4 If an override is found but `app_path` does not exist, show a user warning ("Configured opener not found") and fall back to `open::that`
-- [ ] 6.5 Write unit tests for the override-lookup path using a `FileOpenerConfig` with a known entry
+- [x] 6.1 Load `FileOpenerConfig` in `ItemOpener` (or accept it as a constructor argument) so it is available at open time
+- [x] 6.2 In `ItemOpener::open(path)`, call `FileOpenerConfig::find_override(extension)` before dispatching to `open::that`
+- [x] 6.3 If an override is found and its `app_path` exists, use `open::with(file_path, app_path)` or `Command::new(app_path).arg(file_path)`
+- [x] 6.4 If an override is found but `app_path` does not exist, show a user warning ("Configured opener not found") and fall back to `open::that`
+- [x] 6.5 Write unit tests for the override-lookup path using a `FileOpenerConfig` with a known entry
 
 ## 7. Swift App — Settings Scene Shell
 
@@ -85,10 +85,10 @@
 
 ## 11. Verification
 
-- [ ] 11.1 Open settings from the toolbar gear button; verify all three tabs are accessible and the last-viewed tab is remembered across open/close cycles
-- [ ] 11.2 Log out via Account section; verify credentials are cleared and the app returns to unauthenticated state
-- [ ] 11.3 Change storage location via Storage section; verify the path updates and the "files will not be moved" warning appears
-- [ ] 11.4 Add a `.pdf` → Preview.app override; open a PDF catalog item; verify Preview opens instead of the OS default
-- [ ] 11.5 Delete the override; open a PDF catalog item again; verify the OS default is used
-- [ ] 11.6 Simulate a stale override (move the target app); open File Openers settings; verify the stale entry is flagged
-- [ ] 11.7 Run `cargo test --workspace` and confirm all tests pass
+- [x] 11.1 Open settings from the toolbar gear button; verify all three tabs are accessible and the last-viewed tab is remembered across open/close cycles
+- [x] 11.2 Log out via Account section; verify credentials are cleared and the app returns to unauthenticated state
+- [x] 11.3 Change storage location via Storage section; verify the path updates and the "files will not be moved" warning appears
+- [x] 11.4 Add a `.pdf` → Preview.app override; open a PDF catalog item; verify Preview opens instead of the OS default
+- [x] 11.5 Delete the override; open a PDF catalog item again; verify the OS default is used
+- [x] 11.6 Simulate a stale override (move the target app); open File Openers settings; verify the stale entry is flagged
+- [x] 11.7 Run `cargo test --workspace` and confirm all tests pass

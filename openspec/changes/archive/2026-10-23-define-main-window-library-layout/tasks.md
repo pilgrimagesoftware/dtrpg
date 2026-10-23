@@ -19,8 +19,8 @@
 
 ## 4. Verification
 
-- [ ] 4.1 Verify expanded and collapsed search/filter states in each child app implementation
-- [ ] 4.2 Verify list/tree and grid views use the same filtered and sorted library result set
-- [ ] 4.3 Verify grouped grid sections report correct section and item summary counts
-- [ ] 4.4 Verify account menu actions are reachable without exposing raw access-token values outside token edit flows
-- [ ] 4.5 Verify library sync/update activity does not block main window interaction
+- [x] 4.1 Verify expanded and collapsed search/filter states in each child app implementation
+- [x] 4.2 Verify list/tree and grid views use the same filtered and sorted library result set
+- [x] 4.3 Verify grouped grid sections report correct section and item summary counts
+- [x] 4.4 Verify account menu actions are reachable without exposing raw access-token values outside token edit flows
+- [x] 4.5 Verify library sync/update activity does not block main window interaction

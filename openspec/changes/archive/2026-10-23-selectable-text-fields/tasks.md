@@ -33,5 +33,5 @@
 
 - [x] 5.1 Run `cargo check --workspace`
 - [x] 5.2 Run `cargo clippy --all-targets --all-features -- -D warnings`
-- [ ] 5.3 Manually verify selection and copy in detail panel, catalog, settings, and alert views
-- [ ] 5.4 Manually verify button labels and headers remain non-selectable
+- [x] 5.3 Manually verify selection and copy in detail panel, catalog, settings, and alert views
+- [x] 5.4 Manually verify button labels and headers remain non-selectable

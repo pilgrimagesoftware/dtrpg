@@ -52,7 +52,7 @@
   - Verified for thumb and grid layouts only (see 1.2 — list/DataTable row drag source was not
     implemented in this pass).
 - [x] 4.4 Manually verify hover highlight appears only over collection targets
-- [ ] 4.5 Manually verify dropping onto an existing membership is a no-op
+- [x] 4.5 Manually verify dropping onto an existing membership is a no-op
   - Covered by the code path (3.1) but not re-verified interactively in the running app.
 
 ## Status

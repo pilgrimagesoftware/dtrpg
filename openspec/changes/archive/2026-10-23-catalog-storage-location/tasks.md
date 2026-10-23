@@ -17,8 +17,8 @@
 - [x] 3.1 Identify or create the settings state handler in `dtrpg-app/rust` and add a `change_storage_location()` action
 - [x] 3.2 Invoke the OS-native folder picker dialog (via gpui or `rfd` crate) to let the user select a new directory
 - [x] 3.3 On confirmation, run writability validation; on failure, show an error and abort
-- [ ] 3.4 On success, display a warning dialog: "Existing downloaded files will not be moved. Move them manually or re-download." with "Continue" / "Cancel" buttons
-- [ ] 3.5 On "Continue", save the new path to `StorageConfig` and refresh all download state (mark previously-downloaded items as not-downloaded at the new location)
+- [x] 3.4 On success, display a warning dialog: "Existing downloaded files will not be moved. Move them manually or re-download." with "Continue" / "Cancel" buttons
+- [x] 3.5 On "Continue", save the new path to `StorageConfig` and refresh all download state (mark previously-downloaded items as not-downloaded at the new location)
 
 ## 4. Rust App — Settings UI: Storage Section
 
@@ -31,18 +31,18 @@
 - [x] 5.1 Implement a `reveal_in_file_manager(path: &Path)` function using `open -R <path>` on macOS, `explorer /select,<path>` on Windows, and DBus `org.freedesktop.FileManager1.ShowItems` (with `xdg-open` on the parent dir as fallback) on Linux
 - [x] 5.2 Use `#[cfg(target_os)]` to select the correct platform implementation at compile time
 - [x] 5.3 Return a `Result` and surface errors as user-facing notifications
-- [ ] 5.4 Write integration tests (or manually verify) for reveal on each platform
+- [x] 5.4 Write integration tests (or manually verify) for reveal on each platform
 
 ## 6. Rust App — Catalog and Detail View: Reveal Action
 
 - [x] 6.1 Add "Show in Finder / Explorer / Files" to the catalog item list row and grid card, visible only when the item is downloaded; call `reveal_in_file_manager` with the item's resolved path
 - [x] 6.2 Add the same action to the catalog item detail view alongside the existing "Open" button
-- [ ] 6.3 Handle the missing-file error from `reveal_in_file_manager` by prompting the user to re-download
+- [x] 6.3 Handle the missing-file error from `reveal_in_file_manager` by prompting the user to re-download
 
 ## 7. Rust App — Startup: Unavailable Storage Root
 
 - [x] 7.1 On app startup, check that the configured storage root exists and is accessible
-- [ ] 7.2 If unavailable, display a persistent banner/alert explaining the storage path is unreachable and disable download/open/reveal actions until the issue is resolved or the path is changed
+- [x] 7.2 If unavailable, display a persistent banner/alert explaining the storage path is unreachable and disable download/open/reveal actions until the issue is resolved or the path is changed
 
 ## 8. Swift App — StorageConfig and Preference
 
@@ -72,7 +72,7 @@
 
 ## 12. Audit and Cleanup
 
-- [ ] 12.1 Audit all existing file path construction in `dtrpg-app/rust` and route any hardcoded or ad hoc paths through `StorageConfig`
+- [x] 12.1 Audit all existing file path construction in `dtrpg-app/rust` and route any hardcoded or ad hoc paths through `StorageConfig`
 - [ ] 12.2 Audit all existing file path construction in `dtrpg-app/swift` and route through `StorageConfig`
-- [ ] 12.3 Confirm download state is stored as item-relative paths (not absolute paths) so it remains valid across storage root changes; refactor if needed
-- [ ] 12.4 Manual end-to-end test: set custom location → download an item → verify file appears at new location → change location again → verify item shows as not-downloaded → reveal storage root from settings
+- [x] 12.3 Confirm download state is stored as item-relative paths (not absolute paths) so it remains valid across storage root changes; refactor if needed
+- [x] 12.4 Manual end-to-end test: set custom location → download an item → verify file appears at new location → change location again → verify item shows as not-downloaded → reveal storage root from settings
