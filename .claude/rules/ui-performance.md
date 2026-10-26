@@ -8,6 +8,8 @@ paths:
 Main-window framerate is a hard requirement. Changes to anything rendered in the main window have repeatedly caused sluggishness (most recently after the smart collection editor work).
 
 - Treat every change that touches the main window's render path, state, or observers as performance-sensitive.
+- Frames only render values that are already computed. No recomputation during a frame.
+- Computation runs off the UI thread, and only when a change invalidates the result. Store the result and notify when it lands.
 - Keep `render` functions cheap: no allocation-heavy work, sorting, filtering, or I/O per frame. Compute once, cache, and invalidate on change.
 - Notify/redraw only the views whose data changed. Avoid broad `cx.notify()` on root views or on high-frequency events.
 - Virtualize or paginate large lists and tables; never build every row eagerly.
